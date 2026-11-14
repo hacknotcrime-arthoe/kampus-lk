@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Личный кабинет — Кампус</title>
+<link rel="manifest" href='data:application/manifest+json,{"name":"Кампус","short_name":"Кампус","start_url":".","display":"standalone","background_color":"%23f5f2ef","theme_color":"%236d1b2b","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjNmQxYjJiIi8+PHRleHQgeD0iNTAiIHk9IjY1IiBmaWxsPSIjYjA4ZDU3IiBmb250LXNpemU9IjQ4IiBmb250LWZhbWlseT0ic2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7QmtCw0LzQv9GD0YE8L3RleHQ+PC9zdmc+","sizes":"192x192","type":"image/svg+xml"}]}'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+
+<style>
+:root{
+  --bg: #f5f2ef; --bg-2: #ffffff; --text: #2b2523; --text-2: #7a706b;
+  --border: #e6ded7; --primary: #6d1b2b; --primary-hover: #541420;
+  --accent: #b08d57; --card: #ffffff;
+  --success: #4a7c59; --warning: #c47f17; --danger: #d32f2f;
+  --shadow: 0 8px 30px rgba(109, 27, 43, 0.06); --radius: 16px;
+  --font-serif: 'Playfair Display', Georgia, serif; --font-sans: 'Inter', system-ui, sans-serif;
+}
+[data-theme="dark"]{
+  --bg: #1a1514; --bg-2: #241d1c; --text: #f0ebe6; --text-2: #a69b95;
+  --border: #3a2f2d; --primary: #8b2539; --primary-hover: #a32c43;
+  --card: #241d1c; --success: #6c9c7a; --warning: #e8a851; --danger: #ef4444;
+  --shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.5;transition:background .3s,color .3s;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:15px}
+a{color:var(--primary);text-decoration:none}
+.hidden{display:none!important}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ===== LOGIN ===== */
+#login-screen{min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:900px){#login-screen{flex-direction:row}}
+.login-left{background:var(--primary);color:#fff;padding:60px 40px;display:flex;flex-direction:column;justify-content:center;position:relative;flex:0 0 40%;z-index:2}
+.login-left::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.2) 0%,rgba(0,0,0,0) 100%);z-index:-1}
+.login-left h1{font-family:var(--font-serif);font-size:42px;font-weight:600;line-height:1.2;margin-bottom:20px;max-width:300px}
+.login-left .divider{width:60px;height:1px;background:rgba(255,255,255,.4);margin-bottom:20px}
+.login-left p{font-size:14px;opacity:.8;letter-spacing:1px;text-transform:uppercase}
+.login-right{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;position:relative}
+.login-right::before{content:'';position:absolute;inset:0;background-image:url('campus.jpg');background-size:cover;background-position:center;filter:blur(3px) brightness(.8);z-index:0}
+.login-right::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,var(--primary) 0%,rgba(109,27,43,.6) 30%,rgba(109,27,43,.1) 100%);z-index:1}
+[data-theme="dark"] .login-right::after{background:linear-gradient(105deg,var(--primary) 0%,rgba(26,21,20,.8) 30%,rgba(26,21,20,.3) 100%)}
+.login-card{position:relative;z-index:2;background:var(--bg);border-radius:24px;padding:48px 40px;width:100%;max-width:440px;box-shadow:0 20px 50px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2)}
+.login-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
+.logo-container{display:flex;flex-direction:column;align-items:center;margin-bottom:24px}
+.logo-text{font-family:var(--font-serif);font-weight:700;font-size:26px;letter-spacing:2px;text-align:center;color:var(--primary);line-height:1.2;text-transform:uppercase}
+.logo-divider{width:40px;height:2px;background:var(--primary);margin:16px auto;opacity:.5}
+.logo-subtext{font-size:14px;color:var(--text-2);text-align:center}
+.field{margin-bottom:20px;position:relative}
+.field label{display:block;font-size:13px;font-weight:500;margin-bottom:8px}
+.field input, .field select, .field textarea{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:var(--bg-2);color:var(--text);font-size:14px;transition:all .2s}
+.field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(109,27,43,.1)}
+.field .eye{position:absolute;right:16px;top:38px;color:var(--text-2);cursor:pointer}
+.checkbox-row{display:flex;align-items:center;gap:8px;margin-bottom:24px;font-size:13px}
+.checkbox-row input{width:16px;height:16px;accent-color:var(--primary)}
+.btn-primary{width:100%;padding:16px;border-radius:10px;font-weight:600;font-size:15px;color:#fff;background:var(--primary);transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary:hover{background:var(--primary-hover)}
+.forgot-link{display:block;text-align:left;font-size:13px;color:var(--text-2);margin-top:16px;cursor:pointer}
+.forgot-link:hover{color:var(--primary)}
+.demo-box{margin-top:32px;padding:20px;background:var(--bg-2);border-radius:12px;border:1px dashed var(--border)}
+.demo-box .ttl{font-size:11px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.demo-acct{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:8px;margin-bottom:8px;background:var(--card);border:1px solid var(--border);transition:all .2s;cursor:pointer;font-size:13px}
+.demo-acct:hover{border-color:var(--primary)}
+.demo-acct .who{font-weight:600}
+.demo-acct .creds{color:var(--text-2);font-size:11px;margin-top:2px}
+.demo-acct button{font-size:11px;font-weight:600;color:var(--primary);padding:6px 12px;border-radius:6px;background:rgba(109,27,43,.08)}
+.demo-note{font-size:10px;color:var(--text-2);text-align:center;margin-top:8px}
+.err{color:var(--danger);font-size:13px;margin-top:12px;display:none;text-align:center}
+
+/* ===== APP SHELL ===== */
+#main-app{min-height:100vh;display:flex;background:var(--bg)}
+.sidebar{display:none;width:270px;flex-shrink:0;background:var(--primary);padding:32px 24px;flex-direction:column;position:sticky;top:0;height:100vh;color:#fff;z-index:10;overflow-y:auto}
+.sidebar .brand{display:flex;align-items:center;gap:12px;margin-bottom:40px}
+.sidebar .brand svg{width:44px;height:44px}
+.sidebar .brand .title{font-family:var(--font-serif);font-size:18px;font-weight:600;line-height:1.1}
+.sidebar .brand .sub{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.7}
+
+.nav-section-label{font-size:10px;text-transform:uppercase;opacity:.4;margin:16px 0 8px 16px;font-weight:700;letter-spacing:1px}
+.nav-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;margin-bottom:4px;font-weight:500;font-size:14px;color:rgba(255,255,255,.7);transition:all .2s;cursor:pointer;text-decoration:none}
+.nav-item i{font-size:22px}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-item.active{background:rgba(255,255,255,.15);color:#fff}
+.nav-item .badge{margin-left:auto;background:#fff;color:var(--primary);font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px}
+.nav-item .badge-session{background:var(--accent);color:#fff}
+.main-content{flex:1;padding-bottom:80px;min-width:0;display:flex;flex-direction:column}
+
+/* Топбар */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,242,239,.8);backdrop-filter:blur(12px);padding:16px 32px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)}
+[data-theme="dark"] .topbar{background:rgba(26,21,20,.8)}
+.topbar-left{display:flex;flex-direction:column;flex:1;min-width:0}
+.topbar .breadcrumbs{font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.topbar .greeting{font-family:var(--font-serif);font-size:24px;font-weight:600;letter-spacing:-.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar-search{flex:0 1 250px;position:relative;display:none}
+@media(min-width:1100px){.topbar-search{display:block}}
+.topbar-search input{width:100%;padding:10px 16px 10px 40px;border-radius:30px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:13px}
+.topbar-search i{position:absolute;left:14px;top:11px;color:var(--text-2);font-size:18px}
+.search-results{position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-top:8px;box-shadow:var(--shadow);z-index:100;max-height:300px;overflow-y:auto}
+.search-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:8px}
+.search-item:hover{background:var(--bg)}
+.search-item:last-child{border-bottom:none}
+.topbar-actions{display:flex;align-items:center;gap:12px}
+.icon-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;background:var(--card);border:1px solid var(--border);transition:all .2s;position:relative;color:var(--text-2)}
+.icon-btn:hover{background:var(--bg-2);color:var(--primary)}
+.icon-btn .dot{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--primary);border:2px solid var(--card)}
+.user-pill{display:flex;align-items:center;gap:12px;padding:4px 12px 4px 4px;background:var(--card);border-radius:30px;border:1px solid var(--border);cursor:pointer}
+.user-pill .avatar-sm{width:32px;height:32px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--primary);flex-shrink:0}
+.user-pill .name{font-size:14px;font-weight:500;max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.page{padding:24px 32px;max-width:1200px;margin:0 auto;width:100%;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Mobile Nav & Drawer */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:var(--card);border-top:1px solid var(--border);display:flex;padding:8px 8px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.05);overflow-x:auto}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border-radius:10px;font-size:10px;font-weight:500;color:var(--text-2);transition:all .2s;position:relative;min-width:60px}
+.bn-item i{font-size:22px}
+.bn-item.active{color:var(--primary)}
+.bn-item.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--primary);border-radius:0 0 4px 4px}
+
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:900;display:none;backdrop-filter:blur(2px)}
+.sidebar-overlay.open{display:block}
+
+@media(max-width:899px){
+  .sidebar{display:flex;position:fixed;left:-100%;transition:left .3s ease;z-index:1000}
+  .sidebar.open{left:0}
+  .bottom-nav{display:flex}
+  .main-content{padding-bottom:80px}
+  .topbar{padding:16px 20px}
+  .page{padding:20px}
+}
+@media(min-width:900px){
+  .sidebar{display:flex;position:sticky;left:0}
+  .bottom-nav{display:none}
+  .sidebar-overlay{display:none!important}
+  .main-content{padding-bottom:24px}
+  .topbar{padding:20px 48px}
+  .page{padding:32px 48px}
+  .mobile-only{display:none!important}
+}
+@media(max-width:899px){.desktop-only{display:none!important}}
+
+/* ===== UI COMPONENTS ===== */
+.widget-card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:24px;transition:transform .2s ease, box-shadow .2s ease}
+.widget-card[onclick]:hover, .widget-card.clickable:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(109, 27, 43, 0.08);cursor:pointer}
+[data-theme="dark"] .widget-card[onclick]:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 12px 40px rgba(0,0,0,.3)}
+.widget-card.accent{border-left:4px solid var(--accent)}
+
+.widget-stat{display:flex;flex-direction:column;background:var(--card);border-radius:var(--radius);padding:16px;border:1px solid var(--border);box-shadow:var(--shadow);text-align:center;justify-content:center}
+.widget-stat .val{font-family:var(--font-serif);font-size:32px;font-weight:700;color:var(--primary);line-height:1.1;margin-bottom:4px}
+.widget-stat .lbl{font-size:11px;color:var(--text-2);text-transform:uppercase;font-weight:600;letter-spacing:.5px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+@media(min-width:900px){.stat-grid{grid-template-columns:repeat(4,1fr)}}
+
+.empty-state{text-align:center;padding:32px 16px;color:var(--text-2)}
+.empty-state i{font-size:40px;opacity:.4;margin-bottom:8px;display:block}
+.empty-state p{font-size:14px}
+
+.widget-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;font-family:var(--font-serif);font-size:20px;font-weight:600}
+.widget-title .link{font-family:var(--font-sans);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer}
+.widget-title .link:hover{color:var(--primary)}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;background:var(--bg);color:var(--text-2);border:1px solid var(--border);cursor:pointer;white-space:nowrap;transition:all .2s}
+.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Dashboard Hero */
+.dash-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:1100px){.dash-grid{grid-template-columns:2fr 1fr}}
+.hero-banner{background:linear-gradient(135deg,#2a1116,#6d1b2b);border-radius:var(--radius);padding:32px;color:#fff;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow)}
+.hero-banner::before{content:'';position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop');background-size:cover;background-position:center;opacity:.15;mix-blend-mode:overlay}
+.hero-top{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.hero-countdown{background:rgba(255,255,255,.2);padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(4px)}
+.hero-banner h2{font-family:var(--font-serif);font-size:clamp(20px,4vw,28px);font-weight:600;line-height:1.2;position:relative;z-index:1;max-width:400px;margin-bottom:16px}
+.hero-btn{position:relative;z-index:1;align-self:flex-start;padding:10px 20px;border-radius:30px;border:1px solid rgba(255,255,255,.5);color:#fff;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;transition:all .2s;background:rgba(0,0,0,.2);backdrop-filter:blur(4px);text-decoration:none}
+.hero-btn:hover{background:#fff;color:var(--primary)}
+
+/* LMS Widget */
+.lms-widget{background:linear-gradient(135deg, var(--primary), var(--primary-hover));color:#fff;border-radius:var(--radius);padding:24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);cursor:pointer;transition:transform .2s}
+.lms-widget:hover{transform:translateY(-2px)}
+.lms-widget h3{font-family:var(--font-serif);font-size:20px;margin-bottom:4px}
+.lms-widget p{font-size:13px;opacity:.8}
+.lms-widget .btn-lms{background:#fff;color:var(--primary);padding:10px 20px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px}
+
+/* LMS Page */
+.lms-course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.lms-course-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;justify-content:space-between}
+.lms-course-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(109,27,43,.08);border-color:var(--primary)}
+.lms-course-header{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+.lms-course-icon{width:48px;height:48px;border-radius:12px;background:rgba(109,27,43,.08);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.lms-course-title{font-weight:700;font-size:16px;margin-bottom:4px}
+.lms-course-teacher{font-size:12px;color:var(--text-2)}
+.lms-progress-wrap{margin-bottom:16px}
+.lms-progress-text{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text-2)}
+.lms-progress{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.lms-progress-bar{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
+.lms-materials{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;gap:8px}
+.lms-mat-item{display:flex;align-items:center;gap:8px}
+
+/* Tasks Widget */
+.task-item{display:flex;gap:12px;margin-bottom:12px;align-items:center;font-size:14px;background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--border)}
+.task-item i{color:var(--accent);font-size:18px}
+.task-item span{font-weight:500}
+
+/* Schedule */
+.sched-item{display:flex;gap:16px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.sched-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.sched-time{font-size:13px;font-weight:600;color:var(--text-2);width:44px;flex-shrink:0}
+.sched-info{flex:1}
+.sched-info .subj{font-weight:600;font-size:14px;margin-bottom:4px}
+.sched-info .room{font-size:12px;color:var(--text-2)}
+.mts-link-btn{background:var(--primary);color:#fff;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;margin-top:8px;text-decoration:none;transition:background .2s}
+.mts-link-btn:hover{background:var(--primary-hover)}
+.mts-link-btn i{font-size:14px}
+
+.bell-schedule{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;scrollbar-width:none}
+.bell-schedule::-webkit-scrollbar{display:none}
+.bell-item{min-width:100px;background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--border);text-align:center}
+.bell-item .num{font-weight:700;font-size:14px;margin-bottom:4px}
+.bell-item .time{font-size:12px;color:var(--text-2)}
+
+/* Teacher Accordion */
+.teacher-item{border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;background:var(--card)}
+.teacher-header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--bg);cursor:pointer;font-weight:600;transition:background .2s}
+.teacher-header:hover{background:rgba(109,27,43,.04)}
+.teacher-lessons{padding:16px;border-top:1px solid var(--border);background:var(--card)}
+.teacher-lessons .sched-item{border-bottom:1px solid var(--border);margin-bottom:12px;padding-bottom:12px}
+.teacher-lessons .sched-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+/* Events */
+.event-item{display:flex;gap:16px;margin-bottom:16px;cursor:pointer;align-items:center;transition:opacity .2s}
+.event-item:hover{opacity:.85}
+.event-icon{width:60px;height:60px;border-radius:12px;background:rgba(176,141,87,.1);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.event-info .title{font-weight:600;font-size:14px;margin-bottom:6px;line-height:1.3}
+.event-info .meta{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;gap:4px}
+
+/* Session */
+.session-card{padding:20px;background:var(--card);border-radius:12px;border:1px solid var(--border);margin-bottom:16px}
+.session-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.session-subject{font-weight:700;font-size:16px;color:var(--primary)}
+.session-type{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;border:1px solid transparent}
+.session-type.exam{background:rgba(176,141,87,.1);color:var(--accent);border-color:rgba(176,141,87,.3)}
+.session-type.credit{background:rgba(74,124,89,.1);color:var(--success);border-color:rgba(74,124,89,.3)}
+.session-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:var(--text-2);margin-bottom:16px}
+@media(max-width:500px){.session-meta{grid-template-columns:1fr}}
+.session-meta span{display:flex;align-items:center;gap:6px}
+.session-consult{font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:6px;margin-bottom:16px;}
+.questions-btn{width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.questions-btn:hover{border-color:var(--primary);color:var(--primary)}
+.question-list{margin-top:12px;padding-left:20px;font-size:13px;color:var(--text-2);line-height:1.6}
+.question-list li{margin-bottom:6px}
+
+/* Grades & Tables */
+.gpa-circle{position:relative;width:120px;height:120px;margin:0 auto 16px}
+.gpa-circle svg{transform:rotate(-90deg)}
+.gpa-circle .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gpa-circle .val .n{font-family:var(--font-serif);font-size:32px;font-weight:700;line-height:1}
+.gpa-circle .val .l{font-size:11px;color:var(--text-2);font-weight:600;text-transform:uppercase}
+.disc-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+.disc-row:last-child{border-bottom:none}
+.disc-row .name{flex:1;font-weight:500;font-size:14px}
+.disc-row .grade{font-family:var(--font-serif);font-size:20px;font-weight:600;}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}
+th{font-weight:600;color:var(--text-2);font-size:12px;text-transform:uppercase}
+.debt-card{padding:16px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.05);border-radius:12px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.debt-card .info .title{font-weight:600;color:var(--danger);margin-bottom:4px}
+.debt-card .info .sub{font-size:12px;color:var(--text-2)}
+.btn-sm{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;background:var(--primary);color:#fff;cursor:pointer;transition:all .2s}
+.btn-sm:hover{background:var(--primary-hover)}
+.btn-sm:disabled{background:var(--success);cursor:default}
+
+.scholarship-widget{background:linear-gradient(135deg, rgba(176,141,87,.1), rgba(109,27,43,.05));border:1px solid rgba(176,141,87,.3);border-radius:12px;padding:16px;margin-top:24px}
+.scholarship-widget h4{color:var(--accent);font-family:var(--font-sans);font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.scholarship-widget p{font-size:13px;color:var(--text-2);line-height:1.4}
+
+/* Portfolio */
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.portfolio-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;gap:16px;align-items:center;transition:all .2s}
+.portfolio-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.portfolio-icon{width:48px;height:48px;border-radius:10px;background:rgba(176,141,87,.1);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.portfolio-info .title{font-weight:600;font-size:14px;margin-bottom:4px}
+.portfolio-info .meta{font-size:12px;color:var(--text-2)}
+
+/* Requests */
+.req-card{padding:20px;background:var(--card);border-radius:12px;border:1px solid var(--border);margin-bottom:16px}
+.req-card .hdr{display:flex;justify-content:space-between;margin-bottom:16px}
+.progress-bar{display:flex;justify-content:space-between;position:relative;margin-top:16px}
+.progress-bar::before{content:'';position:absolute;top:10px;left:calc(100% / 6);right:calc(100% / 6);height:2px;background:var(--border);z-index:0}
+.progress-step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--text-2);flex:1}
+.progress-dot{width:20px;height:20px;border-radius:50%;background:var(--card);border:2px solid var(--border);display:flex;align-items:center;justify-content:center}
+.progress-step.done .progress-dot{background:var(--success);border-color:var(--success);color:#fff}
+.progress-step.done{color:var(--success)}
+.progress-step.active .progress-dot{background:var(--warning);border-color:var(--warning);color:#fff}
+.progress-step.active{color:var(--warning)}
+
+.request-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}
+.request-card{min-width:260px;padding:20px;background:var(--card);border-radius:12px;border:1px solid var(--border);display:flex;gap:16px;align-items:flex-start;cursor:pointer;transition:all .2s;flex:1}
+.request-card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(176,141,87,.1);transform:translateY(-2px)}
+.request-card i{font-size:24px;color:var(--accent)}
+.request-card .title{font-weight:600;font-size:14px;margin-bottom:4px}
+.request-card .date{font-size:12px;color:var(--text-2)}
+
+/* Docs & Finance */
+.qr-placeholder{width:150px;height:150px;background:var(--bg);border:2px dashed var(--border);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--text-2);margin:0 auto 16px}
+.doc-list{display:flex;flex-direction:column;gap:8px}
+.doc-item{display:flex;justify-content:space-between;padding:12px;background:var(--bg);border-radius:8px;font-size:14px;align-items:center}
+.dorm-request{padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--bg)}
+.dorm-request-header{display:flex;justify-content:space-between;font-weight:600;font-size:13px;margin-bottom:4px}
+.dorm-request-desc{font-size:12px;color:var(--text-2)}
+
+/* Digital Pass & Ticket */
+.digital-pass{background:var(--card);border-radius:16px;padding:24px;text-align:center;border:2px solid var(--accent);position:relative;overflow:hidden;box-shadow:0 8px 30px rgba(176,141,87,.15)}
+.digital-pass::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);animation:scan 2s infinite linear}
+@keyframes scan{0%{transform:translateY(0);opacity:1}100%{transform:translateY(300px);opacity:0}}
+.qr-large{width:200px;height:200px;background:#fff;padding:10px;border-radius:12px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.qr-large svg{width:100%;height:100%}
+.ticket{background:var(--card);border-radius:16px;border:1px solid var(--border);display:flex;overflow:hidden;position:relative;margin-bottom:20px}
+.ticket-left{background:var(--primary);color:#fff;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;width:40%;border-right:2px dashed rgba(255,255,255,.3)}
+.ticket-right{padding:24px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.ticket-qr{width:100px;height:100px;background:#fff;border-radius:8px;margin-bottom:12px;padding:4px}
+
+/* Canteen */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.menu-day{background:var(--bg);padding:16px;border-radius:12px;border:1px solid var(--border)}
+.menu-day h4{font-family:var(--font-serif);font-size:16px;margin-bottom:12px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px}
+.menu-item{margin-bottom:12px}
+.menu-item .title{font-weight:600;font-size:13px;margin-bottom:2px}
+.menu-item .price{font-size:12px;color:var(--text-2)}
+
+/* Medical */
+.med-history{display:flex;flex-direction:column;gap:8px}
+.med-item{padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);display:flex;justify-content:space-between}
+.med-item .info .title{font-weight:600;font-size:14px;margin-bottom:2px}
+.med-item .info .date{font-size:12px;color:var(--text-2)}
+
+/* Profile Settings */
+.settings-group{margin-bottom:24px}
+.settings-group h4{font-size:14px;margin-bottom:12px;color:var(--text-2);text-transform:uppercase;letter-spacing:1px}
+.switch-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.switch-row:last-child{border-bottom:none}
+.switch{width:46px;height:26px;border-radius:13px;background:var(--border);position:relative;cursor:pointer;transition:background .2s}
+.switch.on{background:var(--primary)}
+.switch::after{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s}
+.switch.on::after{transform:translateX(20px)}
+
+/* Info Row */
+.info-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
+.info-row:last-child{border-bottom:none}
+.info-row .l{color:var(--text-2)}
+.info-row .v{font-weight:500;text-align:right}
+
+/* Notifications */
+.notif-item{display:flex;gap:16px;padding:16px;border-bottom:1px solid var(--border);transition:background .2s}
+.notif-item.unread{background:rgba(176,141,87,.05);box-shadow:inset 3px 0 var(--accent)}
+.notif-icon{width:40px;height:40px;border-radius:10px;background:rgba(176,141,87,.1);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.notif-content .title{font-weight:600;font-size:14px;margin-bottom:4px}
+.notif-content .text{font-size:13px;color:var(--text-2);line-height:1.4}
+.notif-content .time{font-size:11px;color:var(--text-2);margin-top:8px}
+.notif-filter{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto}
+.notif-filter button{padding:6px 12px;border-radius:20px;font-size:12px;background:var(--bg);border:1px solid var(--border);cursor:pointer}
+.notif-filter button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* Chat FAB & Modal */
+.assistant-fab{position:fixed;bottom:90px;right:24px;z-index:900;width:60px;height:60px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 8px 24px rgba(109,27,43,.4);transition:transform .2s}
+.assistant-fab:hover{transform:scale(1.05)}
+@media(min-width:900px){.assistant-fab{bottom:32px;right:32px}}
+
+.chat-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+@media(min-width:900px){.chat-modal{align-items:center}}
+.chat{background:var(--card);width:100%;max-width:480px;height:80vh;max-height:700px;border-radius:24px 24px 0 0;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:900px){.chat{border-radius:24px;height:80vh}}
+.chat-head{padding:20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);background:var(--primary);color:#fff}
+.chat-head .av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px}
+.chat-head h3{font-family:var(--font-serif);font-size:18px}
+.chat-toggle{display:flex;background:rgba(0,0,0,.2);border-radius:20px;padding:2px;margin-left:auto;margin-right:12px}
+.chat-toggle button{padding:6px 12px;border-radius:16px;font-size:12px;color:#fff;opacity:.7}
+.chat-toggle button.active{background:#fff;color:var(--primary);opacity:1}
+.chat-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:85%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.5}
+.msg.bot{background:var(--bg);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:var(--primary);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-input{padding:16px;border-top:1px solid var(--border);display:flex;gap:12px}
+.chat-input input{flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
+.chat-input button{width:48px;height:48px;border-radius:10px;background:var(--primary);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
+
+/* Modals & Toasts */
+.modal-bg{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal{background:var(--card);border-radius:20px;padding:32px;width:100%;max-width:440px;box-shadow:0 24px 60px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto}
+.modal h3{font-family:var(--font-serif);font-size:24px;margin-bottom:12px}
+.modal .sub{font-size:14px;color:var(--text-2);margin-bottom:24px}
+.modal .actions{display:flex;gap:12px;margin-top:24px}
+.btn-sec{flex:1;padding:14px;border-radius:10px;font-weight:600;font-size:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer}
+.btn-prim{flex:1;padding:14px;border-radius:10px;font-weight:600;font-size:14px;background:var(--primary);color:#fff;cursor:pointer}
+#toasts{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;gap:8px;width:calc(100% - 32px);max-width:400px}
+.toast{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px;font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.1);display:flex;align-items:center;gap:12px;animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+
+/* Мобильная адаптация */
+@media(max-width:899px){
+  .login-left{display:none}
+  .login-right::before{filter:blur(2px) brightness(.9)}
+  .login-right::after{background:linear-gradient(135deg,var(--primary) 0%,rgba(109,27,43,.4) 100%)}
+  .logo-text{font-size:24px}
+  .widget-card{padding:16px;border-radius:12px;box-shadow:none}
+  .widget-stat .val{font-size:24px}
+  .gpa-circle{width:140px;height:140px}
+}
+</style>
+</head>
+<body>
+<div id="toasts"></div>
+
+<!-- ===== LOGIN ===== -->
+<div id="login-screen">
+  <div class="login-left">
+    <h1>Развивайся.<br>Учись. Достигай.</h1>
+    <div class="divider"></div>
+    <p>Личный кабинет студента</p>
+  </div>
+  <div class="login-right">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-container">
+          <div class="logo-text">ПРЕЗИДЕНТСКАЯ<br>АКАДЕМИЯ</div>
+          <div class="logo-divider"></div>
+        </div>
+        <p class="logo-subtext">Войдите в личный кабинет студента</p>
+      </div>
+      <form id="login-form">
+        <div class="field">
+          <label for="login-email">Логин (email)</label>
+          <input type="email" id="login-email" placeholder="ivanov@example.edu" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="login-password">Пароль</label>
+          <input type="password" id="login-password" placeholder="demo1234" autocomplete="current-password" required>
+          <i class="ti ti-eye eye" onclick="togglePwd(this)" aria-label="Показать пароль"></i>
+        </div>
+        <label class="checkbox-row">
+          <input type="checkbox" id="remember-me" checked> Запомнить меня
+        </label>
+        <button type="submit" class="btn-primary">Войти <i class="ti ti-chevron-right"></i></button>
+        <div class="forgot-link" onclick="showForgotPwd()">Забыли пароль?</div>
+        <div class="err" id="login-err"></div>
+      </form>
+      <div class="demo-box">
+        <div class="ttl">Тестовые аккаунты</div>
+        <div class="demo-acct" onclick="fillLogin('ivanov@example.edu','demo1234')">
+          <div><div class="who">Иванов Иван</div><div class="creds">Бюджет, 3 курс</div></div><button>Войти</button>
+        </div>
+        <div class="demo-acct" onclick="fillLogin('smirnov@example.edu','demo9012')">
+          <div><div class="who">Смирнов Алексей</div><div class="creds">Платник, 2 курс</div></div><button>Войти</button>
+        </div>
+        <div class="demo-acct" onclick="fillLogin('kuznetsova@example.edu','demo3456')">
+          <div><div class="who">Кузнецова Мария</div><div class="creds">Староста, 4 курс</div></div><button>Войти</button>
+        </div>
+        <div class="demo-note">Пароли можно изменить в профиле — после этого кнопки быстрого входа перестанут работать.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="main-app" class="hidden">
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" rx="20" fill="var(--accent)"/>
+        <text x="50" y="65" fill="var(--primary)" font-size="48" font-family="var(--font-serif)" font-weight="bold" text-anchor="middle">К</text>
+      </svg>
+      <div><div class="title">КАМПУС</div><div class="sub">Личный кабинет</div></div>
+    </div>
+    
+    <div class="nav-section-label">Учёба</div>
+    <a class="nav-item active" data-page="dashboard" href="#/dashboard"><i class="ti ti-home"></i>Главная</a>
+    <a class="nav-item" data-page="schedule" href="#/schedule"><i class="ti ti-calendar"></i>Расписание</a>
+    <a class="nav-item" data-page="session" href="#/session"><i class="ti ti-file-check"></i>Сессия<span class="badge badge-session" id="session-badge">0 дн</span></a>
+    <a class="nav-item" data-page="grades" href="#/grades"><i class="ti ti-award"></i>Успеваемость</a>
+    <a class="nav-item" data-page="lms" href="#/lms"><i class="ti ti-book"></i>СДО (Курсы)</a>
+    <a class="nav-item" data-page="portfolio" href="#/portfolio"><i class="ti ti-trophy"></i>Портфолио</a>
+
+    <div class="nav-section-label">Услуги</div>
+    <a class="nav-item" data-page="requests" href="#/requests"><i class="ti ti-file-text"></i>Заявки</a>
+    <a class="nav-item" data-page="services" href="#/services"><i class="ti ti-briefcase"></i>Сервисы</a>
+    <a class="nav-item" data-page="canteen" href="#/canteen"><i class="ti ti-coffee"></i>Столовая</a>
+    <a class="nav-item" data-page="medical" href="#/medical"><i class="ti ti-stethoscope"></i>Медпункт</a>
+    <a class="nav-item" data-page="events" href="#/events"><i class="ti ti-calendar-event"></i>Мероприятия</a>
+
+    <div class="nav-section-label">Кампус</div>
+    <a class="nav-item" data-action="navigator" href="javascript:void(0)"><i class="ti ti-map"></i>Навигатор</a>
+    <a class="nav-item" data-page="contacts" href="#/contacts"><i class="ti ti-phone"></i>Контакты</a>
+
+    <div class="nav-section-label">Личное</div>
+    <a class="nav-item" data-page="profile" href="#/profile"><i class="ti ti-user"></i>Профиль</a>
+    
+    <div style="margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)">
+      <div class="nav-item" onclick="logout()"><i class="ti ti-logout"></i>Выйти</div>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <div class="topbar">
+      <button class="icon-btn mobile-only" onclick="toggleSidebar()" style="margin-right:8px"><i class="ti ti-menu-2"></i></button>
+      <div class="topbar-left">
+        <div class="breadcrumbs" id="topbar-breadcrumbs">Личный кабинет / Главная</div>
+        <div class="greeting" id="topbar-greeting">Добрый день</div>
+      </div>
+      <div class="topbar-search">
+        <i class="ti ti-search"></i>
+        <input type="text" id="global-search-input" placeholder="Поиск (Enter)..." oninput="handleSearchInput(event)" onkeyup="handleSearchKey(event)">
+        <div id="search-results" class="search-results hidden"></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn desktop-only" onclick="window.open('https://navigator.ranepa.ru/map/campus/1/floor/1', '_blank')" aria-label="Навигатор"><i class="ti ti-map"></i></button>
+        <button class="icon-btn desktop-only" id="theme-toggle" aria-label="Сменить тему"><i class="ti ti-moon"></i></button>
+        <button class="icon-btn" onclick="handleNotifClick()" aria-label="Уведомления">
+          <i class="ti ti-bell"></i><span class="dot hidden" id="notif-dot"></span>
+        </button>
+        <div class="user-pill desktop-only" onclick="showPage('profile')">
+          <div class="avatar-sm" id="topbar-avatar">ИИ</div>
+          <div class="name" id="topbar-name">Студент</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="page-dashboard"></div>
+    <div class="page hidden" id="page-schedule"></div>
+    <div class="page hidden" id="page-session"></div>
+    <div class="page hidden" id="page-grades"></div>
+    <div class="page hidden" id="page-lms"></div>
+    <div class="page hidden" id="page-portfolio"></div>
+    <div class="page hidden" id="page-requests"></div>
+    <div class="page hidden" id="page-services"></div>
+    <div class="page hidden" id="page-canteen"></div>
+    <div class="page hidden" id="page-medical"></div>
+    <div class="page hidden" id="page-events"></div>
+    <div class="page hidden" id="page-notifications"></div>
+    <div class="page hidden" id="page-profile"></div>
+    <div class="page hidden" id="page-contacts"></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="bn-item active" data-page="dashboard"><i class="ti ti-home"></i>Главная</button>
+    <button class="bn-item" data-page="schedule"><i class="ti ti-calendar"></i>Расписание</button>
+    <button class="bn-item" data-page="grades"><i class="ti ti-award"></i>Оценки</button>
+    <button class="bn-item" data-page="requests"><i class="ti ti-file-text"></i>Заявки</button>
+    <button class="bn-item" data-page="profile"><i class="ti ti-user"></i>Профиль</button>
+  </nav>
+</div>
+
+<button class="assistant-fab hidden" id="assistant-fab" aria-label="Помощник"><i class="ti ti-message-chatbot"></i></button>
+
+<script>
+/* ===== ГЛОБАЛЬНЫЕ УТИЛИТЫ ===== */
+const MONTHS_GEN = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const DAYS = ['вс','пн','вт','ср','чт','пт','сб'];
+function fmtDate(d) { return `${d.getDate()} ${MONTHS_GEN[d.getMonth()]}`; }
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10); }
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function togglePwd(el) {
+  const inp = el.previousElementSibling;
+  if (inp.type === 'password') { inp.type = 'text'; el.className = 'ti ti-eye-off eye'; }
+  else { inp.type = 'password'; el.className = 'ti ti-eye eye'; }
+}
+
+function toast(msg, type = 'info') {
+  const icons = { success: 'ti-check', info: 'ti-info-circle', error: 'ti-x', warning: 'ti-alert-triangle' };
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<i class="ti ${icons[type] || icons.info}" style="color:var(--primary)"></i><span>${esc(msg)}</span>`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateY(-10px)'; el.style.transition = 'all .3s'; }, 3000);
+  setTimeout(() => el.remove(), 3300);
+}
+
+function showForgotPwd() {
+  toast('Для восстановления пароля обратитесь в деканат (ауд. 210) или позвоните: +7 (499) 956-99-00', 'info');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+
+let pushWarned = false;
+function handleNotifClick() {
+  if (!currentUser.profile.pushEnabled && !pushWarned) {
+    toast('Push-уведомления отключены в профиле', 'warning');
+    pushWarned = true;
+  }
+  showPage('notifications');
+}
+
+/* ===== БЕЗОПАСНОЕ ХРАНИЛИЩЕ ===== */
+const createSafeStorage = (type) => {
+  let memory = {};
+  return {
+    getItem: (k) => { try { return window[type].getItem(k); } catch(e) { return memory[k] || null; } },
+    setItem: (k, v) => { try { window[type].setItem(k, v); } catch(e) { memory[k] = v; } },
+    removeItem: (k) => { try { window[type].removeItem(k); } catch(e) { delete memory[k]; } }
+  };
+};
+const storage = createSafeStorage('localStorage');
+const session = createSafeStorage('sessionStorage');
+
+async function sha256(str) {
+  try {
+    if (window.crypto && window.crypto.subtle) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+  } catch (e) {}
+  let h = 5381;
+  for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+  return 'fb_' + Math.abs(h).toString(16).padStart(8, '0');
+}
+
+/* ===== ГЕНЕРАТОР РАСПИСАНИЯ ===== */
+function buildSchedule(endDateStr, sessionData) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const endDate = new Date(endDateStr);
+  const schedule = [];
+  
+  const template = [
+    [{ s:'09:00', e:'10:30', subj:'Гражданское право', type:'Лекция', room:'1-101', t:'Смирнов А.П.', link:'https://mts-link.ru/mock/101' }, { s:'10:45', e:'12:15', subj:'Уголовное право', type:'Семинар', room:'3-102', t:'Петров В.С.', link:'https://mts-link.ru/mock/102' }],
+    [{ s:'10:45', e:'12:15', subj:'Административное право', type:'Лекция', room:'1-201', t:'Соколов Д.М.', link:'https://mts-link.ru/mock/103' }],
+    [{ s:'09:00', e:'10:30', subj:'Финансовое право', type:'Практика', room:'2-102', t:'Орлова Т.В.', link:'https://mts-link.ru/mock/104' }, { s:'13:00', e:'14:30', subj:'Конституционное право', type:'Лекция', room:'1-102', t:'Белов Р.Н.', link:'https://mts-link.ru/mock/105' }],
+    [],
+    [{ s:'10:45', e:'12:15', subj:'Гражданское право', type:'Практика', room:'1-101', t:'Смирнов А.П.', link:'https://mts-link.ru/mock/101' }],
+    [], []]
+  ;
+
+  let current = new Date(today);
+  while (current <= endDate) {
+    const dow = (current.getDay() + 6) % 7;
+    
+    const exam = sessionData.find(s => s.rawDate === current.toDateString());
+    let lessons = [];
+    
+    if (exam) {
+      lessons.push({
+        start: exam.time, end: '15:00', subject: exam.subject, type: exam.type, room: exam.room, teacher: exam.teacher, id: uid(), status: 'exam', link: 'https://mts-link.ru/mock/exam'
+      });
+    } else {
+      lessons = (template[dow] || []).map(l => ({
+        start: l.s, end: l.e, subject: l.subj, type: l.type, room: l.room, teacher: l.t, id: uid(), status: 'normal', link: l.link
+      }));
+    }
+    
+    schedule.push({ date: new Date(current), lessons });
+    current.setDate(current.getDate() + 1);
+  }
+  return schedule;
+}
+
+/* ===== АВТОПРОДЛЕНИЕ РАСПИСАНИЯ ДО "СЕГОДНЯ + 30" ===== */
+function ensureSchedule() {
+  if (!currentUser || !Array.isArray(currentUser.schedule)) return;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const target = new Date(today); target.setDate(target.getDate() + 30);
+
+  let lastDate = null;
+  currentUser.schedule.forEach(d => {
+    const dd = new Date(d.date);
+    if (!lastDate || dd > lastDate) lastDate = dd;
+  });
+  if (lastDate && lastDate >= target) return;
+
+  const template = [
+    [{ s:'09:00', e:'10:30', subj:'Гражданское право', type:'Лекция', room:'1-101', t:'Смирнов А.П.', link:'https://mts-link.ru/mock/101' }, { s:'10:45', e:'12:15', subj:'Уголовное право', type:'Семинар', room:'3-102', t:'Петров В.С.', link:'https://mts-link.ru/mock/102' }],
+    [{ s:'10:45', e:'12:15', subj:'Административное право', type:'Лекция', room:'1-201', t:'Соколов Д.М.', link:'https://mts-link.ru/mock/103' }],
+    [{ s:'09:00', e:'10:30', subj:'Финансовое право', type:'Практика', room:'2-102', t:'Орлова Т.В.', link:'https://mts-link.ru/mock/104' }, { s:'13:00', e:'14:30', subj:'Конституционное право', type:'Лекция', room:'1-102', t:'Белов Р.Н.', link:'https://mts-link.ru/mock/105' }],
+    [],
+    [{ s:'10:45', e:'12:15', subj:'Гражданское право', type:'Практика', room:'1-101', t:'Смирнов А.П.', link:'https://mts-link.ru/mock/101' }],
+    [], []
+  ];
+
+  const startFrom = lastDate ? new Date(lastDate) : new Date(today);
+  if (lastDate) startFrom.setDate(startFrom.getDate() + 1);
+  startFrom.setHours(0,0,0,0);
+
+  let current = new Date(startFrom);
+  while (current <= target) {
+    const dow = (current.getDay() + 6) % 7;
+    const exam = (currentUser.session || []).find(s => s.rawDate === current.toDateString());
+    let lessons;
+    if (exam) {
+      lessons = [{ start: exam.time, end: '15:00', subject: exam.subject, type: exam.type, room: exam.room, teacher: exam.teacher, id: uid(), status: 'exam', link: 'https://mts-link.ru/mock/exam' }];
+    } else {
+      lessons = (template[dow] || []).map(l => ({
+        start: l.s, end: l.e, subject: l.subj, type: l.type, room: l.room, teacher: l.t, id: uid(), status: 'normal', link: l.link
+      }));
+    }
+    currentUser.schedule.push({ date: new Date(current), lessons });
+    current.setDate(current.getDate() + 1);
+  }
+  saveDB();
+}
+
+/* ===== ДИНАМИЧЕСКИЕ ДАННЫЕ СЕССИИ ===== */
+function getDynamicSessionData() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  
+  function getFutureDate(days, time) {
+    const d = new Date(today); d.setDate(today.getDate() + days);
+    return { dateStr: `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`, time, raw: d.toDateString() };
+  }
+
+  const e1 = getFutureDate(12, '10:00');
+  const e2 = getFutureDate(14, '10:00');
+  const e3 = getFutureDate(17, '13:00');
+
+  return {
+    list: [
+      { id: 1, subject: 'Гражданское право', date: e1.dateStr, time: e1.time, rawDate: e1.raw, type: 'Экзамен', teacher: 'Смирнов А.П.', room: '1-101', consult: 'За 2 дня до экзамена в 15:00, ауд. 1-105', questions: ['Понятие и предмет гражданского права.', 'Правоспособность и дееспособность граждан.', 'Понятие и виды сделок. Условия их действительности.', 'Право собственности: понятие, содержание, формы.'] },
+      { id: 2, subject: 'Уголовное право', date: e2.dateStr, time: e2.time, rawDate: e2.raw, type: 'Экзамен', teacher: 'Петров В.С.', room: '3-102', consult: 'За 1 день до экзамена в 14:00, ауд. 3-104', questions: ['Понятие, задачи и система уголовного права.', 'Понятие преступления и его признаки.', 'Состав преступления: понятие и элементы.', 'Понятие и цели наказания.'] },
+      { id: 3, subject: 'Административное право', date: e3.dateStr, time: e3.time, rawDate: e3.raw, type: 'Зачёт', teacher: 'Соколов Д.М.', room: '1-201', consult: 'За 1 день до зачета в 10:00, ауд. 1-203', questions: ['Понятие и предмет административного права.', 'Административно-правовые нормы и отношения.', 'Субъекты административного права.'] }
+    ],
+    startDate: e1.raw,
+    endDate: e3.raw
+  };
+}
+
+const TEACHER_SCHEDULE = [
+  { id: 1, name: 'Смирнов А.П.', subject: 'Гражданское право', day: 'Пн', time: '09:00 - 10:30', link: 'https://mts-link.ru/mock/101' },
+  { id: 2, name: 'Смирнов А.П.', subject: 'Гражданское право (практика)', day: 'Пт', time: '10:45 - 12:15', link: 'https://mts-link.ru/mock/101' },
+  { id: 3, name: 'Петров В.С.', subject: 'Уголовное право', day: 'Пн', time: '10:45 - 12:15', link: 'https://mts-link.ru/mock/102' },
+  { id: 4, name: 'Соколов Д.М.', subject: 'Административное право', day: 'Вт', time: '10:45 - 12:15', link: 'https://mts-link.ru/mock/103' },
+  { id: 5, name: 'Орлова Т.В.', subject: 'Финансовое право', day: 'Ср', time: '09:00 - 10:30', link: 'https://mts-link.ru/mock/104' }
+];
+
+/* ===== SEED DATA ===== */
+function seedUsers() {
+  const sData = getDynamicSessionData();
+  const _schedEnd = new Date(); _schedEnd.setHours(0,0,0,0);
+  _schedEnd.setDate(_schedEnd.getDate() + 30);
+  
+  return {
+    'ivanov': {
+      id: 'ivanov', email: 'ivanov@example.edu', passwordHash: '',
+      profile: { firstName: 'Иван', lastName: 'Иванов', middleName: 'Иванович', faculty: 'Юридический факультет', program: 'Юриспруденция', course: 3, group: 'Ю-21-1', studentId: 'З-1234567', email: 'ivanov@example.edu', phone: '+7 (999) 123-45-67', enrollmentYear: 2021, isPayer: false, isStarosta: false, groupRank: 3, groupTotal: 25, pushEnabled: true, dekanatEnabled: true },
+      schedule: buildSchedule(_schedEnd.toDateString(), sData.list),
+      session: sData.list,
+      grades: { 
+        gpa: 4.5, targetGpa: 4.7, sessionStart: sData.startDate, sessionEnd: sData.endDate,
+        disciplines: [
+          { name:'Гражданское право', credits:5, grade:5, type:'Экзамен', health:'good' },
+          { name:'Уголовное право', credits:4, grade:4, type:'Зачёт', health:'ok' },
+          { name:'Административное право', credits:5, grade:5, type:'Экзамен', health:'good' }
+        ],
+        history: [{ sem: '2 курс, 2 семестр', items: [{name:'Уголовное право', grade:4, teacher:'Петров В.С.'}, {name:'Философия', grade:5, teacher:'Орлова Т.В.'}] }],
+        curriculum: [{ name: 'Гражданское право', credits: 5, form: 'Экзамен', sem: 3, status: 'Сдано' }, { name: 'Финансовое право', credits: 4, form: 'Экзамен', sem: 3, status: 'В процессе' }],
+        debts: [] 
+      },
+      lmsCourses: [
+        { id: 1, title: 'Гражданское право', teacher: 'Смирнов А.П.', progress: 75, materials: ['Лекция 1', 'Семинар 2', 'Тест 1', 'Лекция 2', 'Практика 3'] },
+        { id: 2, title: 'Уголовное право', teacher: 'Петров В.С.', progress: 50, materials: ['Лекция 1', 'Практика 1'] },
+        { id: 3, title: 'Административное право', teacher: 'Соколов Д.М.', progress: 90, materials: ['Вводная лекция', 'Итоговый тест'] }
+      ],
+      portfolio: [
+        { id: 1, title: 'Олимпиада по праву', date: '15.10.2026', type: 'Диплом 1 степени' },
+        { id: 2, title: 'Волонтерский проект "Помощь"', date: '01.09.2026', type: 'Благодарственное письмо' }
+      ],
+      requests: [{ id:'REQ-2026-041', type:'Выписка из зачетной книжки', createdAt: Date.now() - 86400000*2, status:'ready' }],
+      feedback: [{ id: uid(), category: 'Предложение', text: 'Добавить больше розеток в библиотеке.', date: Date.now() - 86400000*5, status: 'Рассмотрено' }],
+      finance: { isPayer: false, scholarships: [{ date: '10.11.2026', amount: '2 500 ₽', type: 'Академическая' }], payments: [] },
+      documents: [{ name: 'Студенческий билет', status: 'Получен' }, { name: 'Зачётная книжка', status: 'Получен' }],
+      dormRequests: [{ id: uid(), category: 'Сантехника', desc: 'Протекает кран на кухне', date: Date.now() - 86400000, status: 'В работе' }],
+      dormDebt: 1500,
+      medicalHistory: [{ id: uid(), symptom: 'Головная боль', date: '12.11.2026', time: '14:00', status: 'Завершен' }],
+      todayTasks: ['Сдать отчёт по практике', 'Консультация в 16:00'],
+      notifications: [{ id: uid(), title:'Перенос пары', body:'Гражданское право перенесено в ауд. 1-101.', date: Date.now() - 3600000*3, read:false, category:'schedule' }]
+    },
+    'smirnov': {
+      id: 'smirnov', email: 'smirnov@example.edu', passwordHash: '',
+      profile: { firstName: 'Алексей', lastName: 'Смирнов', middleName: 'Дмитриевич', faculty: 'Экономический факультет', program: 'Экономика', course: 2, group: 'Э-22-2', studentId: 'З-7654321', email: 'smirnov@example.edu', phone: '+7 (999) 765-43-21', enrollmentYear: 2022, isPayer: true, isStarosta: false, groupRank: 15, groupTotal: 30, pushEnabled: true, dekanatEnabled: true },
+      schedule: buildSchedule(_schedEnd.toDateString(), sData.list.slice(0, 2)),
+      session: sData.list.slice(0, 2),
+      grades: { 
+        gpa: 3.8, targetGpa: 4.5, sessionStart: sData.startDate, sessionEnd: sData.endDate,
+        disciplines: [
+          { name:'Макроэкономика', credits:6, grade:4, type:'Экзамен', health:'good' },
+          { name:'Микроэкономика', credits:5, grade:4, type:'Экзамен', health:'ok' }
+        ],
+        history: [], curriculum: [], debts: [{ subject: 'Эконометрика', teacher: 'Иванова Е.А.', date: '15.02.2027' }] 
+      },
+      lmsCourses: [
+        { id: 1, title: 'Макроэкономика', teacher: 'Петров В.С.', progress: 40, materials: ['Введение', 'Тема 1'] },
+        { id: 2, title: 'Микроэкономика', teacher: 'Орлова Т.В.', progress: 60, materials: ['Лекция 1', 'Задание 1'] }
+      ],
+      portfolio: [],
+      requests: [],
+      feedback: [],
+      finance: { isPayer: true, scholarships: [], payments: [{ date: '15.09.2026', amount: '85 000 ₽', type: 'Осенний семестр' }] },
+      documents: [{ name: 'Студенческий билет', status: 'Получен' }, { name: 'Договор об обучении', status: 'Получен' }],
+      dormRequests: [],
+      dormDebt: 1500,
+      medicalHistory: [],
+      todayTasks: ['Оплатить обучение', 'Семинар по макроэкономике'],
+      notifications: [{ id: uid(), title:'Оплата обучения', body:'Напоминаем о необходимости оплаты за весенний семестр до 15.02.2027.', date: Date.now() - 3600000*5, read:false, category:'finance' }]
+    },
+    'kuznetsova': {
+      id: 'kuznetsova', email: 'kuznetsova@example.edu', passwordHash: '',
+      profile: { firstName: 'Мария', lastName: 'Кузнецова', middleName: 'Александровна', faculty: 'Юридический факультет', program: 'Юриспруденция', course: 4, group: 'Ю-20-1', studentId: 'З-9998887', email: 'kuznetsova@example.edu', phone: '+7 (999) 111-22-33', enrollmentYear: 2020, isPayer: false, isStarosta: true, groupRank: 1, groupTotal: 28, pushEnabled: true, dekanatEnabled: true },
+      schedule: buildSchedule(_schedEnd.toDateString(), sData.list),
+      session: sData.list,
+      grades: { 
+        gpa: 4.9, targetGpa: 4.8, sessionStart: sData.startDate, sessionEnd: sData.endDate,
+        disciplines: [
+          { name:'Гражданское право', credits:5, grade:5, type:'Экзамен', health:'good' },
+          { name:'Уголовное право', credits:4, grade:5, type:'Экзамен', health:'good' }
+        ],
+        history: [], curriculum: [], debts: [] 
+      },
+      lmsCourses: [
+        { id: 1, title: 'Гражданское право (углубленный)', teacher: 'Смирнов А.П.', progress: 95, materials: ['Лекция 1-5', 'Курсовая работа'] },
+        { id: 2, title: 'Судебная практика', teacher: 'Соколов Д.М.', progress: 80, materials: ['Видеолекция', 'Практикум'] }
+      ],
+      portfolio: [],
+      requests: [],
+      feedback: [],
+      finance: { isPayer: false, scholarships: [{ date: '10.11.2026', amount: '6 000 ₽', type: 'Повышенная' }], payments: [] },
+      documents: [{ name: 'Студенческий билет', status: 'Получен' }],
+      dormRequests: [],
+      dormDebt: 1500,
+      medicalHistory: [],
+      todayTasks: ['Собрание старост в 15:00'],
+      notifications: [{ id: uid(), title:'Собрание старост', body:'Встреча с деканом в пятницу в 15:00, ауд. 210.', date: Date.now() - 3600000*1, read:false, category:'dekanat' }]
+    }
+  };
+}
+
+const REQUEST_TYPES = [
+  { id:'cert-study', title:'Справка об обучении', desc:'Для соцзащиты, банка и др.', icon:'ti-file-certificate', est:'2 дня' },
+  { id:'extract-order', title:'Выписка из зачетной книжки', desc:'Официальный документ.', icon:'ti-file-text', est:'3 дня' },
+  { id:'mat-help', title:'Заявление на мат. помощь', desc:'В трудной ситуации.', icon:'ti-heart-handshake', est:'10 дней' },
+];
+
+/* ===== ЛОГИКА СТАТУСОВ ЗАЯВОК ===== */
+function calculateRequestStatus(req) {
+  if (req.status === 'rejected') return 'rejected';
+  if (req.status === 'ready') return 'ready';
+  const diff = Date.now() - req.createdAt;
+  if (diff > 20000) return 'ready';
+  if (diff > 8000) return 'processing';
+  return 'submitted';
+}
+
+/* ===== ПЕРСИСТЕНТНОСТЬ ===== */
+const DB_KEY = 'kampus_db_v25';
+const SESSION_KEY = 'kampus_session_v24';
+let DB = null, currentUser = null, currentPage = 'dashboard', dbReady = false, dbInitPromise = null, badgeInterval = null;
+
+function loadDB() { try { const r = storage.getItem(DB_KEY); if (r) return JSON.parse(r); } catch(e){} return null; }
+function saveDB() { try { storage.setItem(DB_KEY, JSON.stringify(DB)); } catch(e){} }
+
+async function initDB() {
+  if (dbReady) return;
+  if (dbInitPromise) return dbInitPromise;
+  dbInitPromise = (async () => {
+    DB = loadDB();
+    if (!DB || !DB.ivanov || !DB.smirnov || !DB.kuznetsova) {
+      DB = seedUsers();
+      DB.ivanov.passwordHash = await sha256('demo1234');
+      DB.smirnov.passwordHash = await sha256('demo9012');
+      DB.kuznetsova.passwordHash = await sha256('demo3456');
+      saveDB();
+    }
+    dbReady = true;
+  })();
+  return dbInitPromise;
+}
+
+async function doLogin(email, password) {
+  if (!DB) throw new Error('Данные загружаются...');
+  email = (email || '').trim().toLowerCase();
+  let user = null;
+  for (const id in DB) { if (DB[id].email.toLowerCase() === email) { user = DB[id]; break; } }
+  if (!user) throw new Error('Пользователь не найден');
+  const hash = await sha256(password);
+  if (hash !== user.passwordHash) throw new Error('Неверный пароль');
+  
+  const remember = document.getElementById('remember-me').checked;
+  const target = remember ? storage : session;
+  const other = remember ? session : storage;
+  target.setItem(SESSION_KEY, JSON.stringify({ userId: user.id }));
+  other.removeItem(SESSION_KEY);
+  
+  return user;
+}
+
+function restoreSession() {
+  const raw = session.getItem(SESSION_KEY) || storage.getItem(SESSION_KEY);
+  if (!raw) return null;
+  try { const s = JSON.parse(raw); if (DB && DB[s.userId]) return DB[s.userId]; } catch(e) {}
+  return null;
+}
+
+function resetViewStates() {
+  scheduleView = 'student';
+  expandedTeacher = null;
+  gradesTab = 'current';
+  reqTab = 'orders';
+  servicesTab = 'docs';
+  notifFilter = 'all';
+  chatMode = 'ai';
+  pushWarned = false;
+}
+
+function logout() {
+  session.removeItem(SESSION_KEY);
+  storage.removeItem(SESSION_KEY);
+  currentUser = null;
+  resetViewStates();
+  if (badgeInterval) { clearInterval(badgeInterval); badgeInterval = null; }
+  chatHistory = { ai: [{ type: 'bot', text: 'Привет! Я AI-помощник. Чем могу помочь?' }], dekanat: [{ type: 'bot', text: 'Здравствуйте! Это чат с деканатом. Задайте ваш вопрос.' }] };
+  document.getElementById('main-app').classList.add('hidden');
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('login-form').reset();
+  window.location.hash = '';
+}
+
+/* ===== РОУТИНГ ===== */
+const PAGE_TITLES = {
+  dashboard: 'Главная', schedule: 'Расписание', session: 'Сессия', grades: 'Успеваемость',
+  lms: 'СДО (Курсы)', portfolio: 'Портфолио', requests: 'Заявки', services: 'Сервисы', events: 'Мероприятия', profile: 'Профиль', contacts: 'Контакты', notifications: 'Уведомления',
+  canteen: 'Столовая', medical: 'Медпункт'
+};
+
+function showPage(page, updateHash = true) {
+  if (!PAGE_TITLES[page]) {
+    page = 'dashboard';
+    if (updateHash) window.location.hash = '#/dashboard';
+  }
+  currentPage = page;
+  
+  if (updateHash && window.location.hash !== '#/' + page) {
+    window.location.hash = '#/' + page;
+  }
+
+  document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.remove('hidden');
+  
+  document.getElementById('topbar-greeting').textContent = PAGE_TITLES[page] || '';
+  document.getElementById('topbar-breadcrumbs').textContent = `Личный кабинет / ${PAGE_TITLES[page] || ''}`;
+  
+  document.querySelectorAll('.nav-item, .bn-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
+  
+  renderCurrent();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  if (window.innerWidth < 900 && document.getElementById('sidebar').classList.contains('open')) {
+    toggleSidebar();
+  }
+}
+
+window.addEventListener('hashchange', () => {
+  const page = window.location.hash.replace('#/', '') || 'dashboard';
+  if (currentPage !== page) showPage(page, false);
+});
+
+function renderCurrent() {
+  if (!currentUser) return;
+  ensureSchedule();
+  const r = { 
+    dashboard: renderDashboard, schedule: renderSchedule, session: renderSession, grades: renderGrades,
+    lms: renderLMS, portfolio: renderPortfolio, requests: renderRequests, services: renderServices, events: renderEvents, notifications: renderNotifications,
+    profile: renderProfile, contacts: renderContacts, canteen: renderCanteen, medical: renderMedical
+  };
+  if (r[currentPage]) r[currentPage]();
+  updateNotifDot();
+  updateBadges();
+}
+
+function updateBadges() {
+  if (!currentUser) return;
+  const countdown = getCountdownStr();
+  const badge = document.getElementById('session-badge');
+  if (countdown.includes('Идут')) {
+    badge.innerHTML = '<i class="ti ti-alarm"></i>';
+    badge.style.background = 'var(--warning)';
+  } else if (countdown.includes('завершена')) {
+    badge.innerHTML = '<i class="ti ti-check"></i>';
+    badge.style.background = 'var(--success)';
+  } else {
+    badge.textContent = countdown.replace('До сессии ', '');
+    badge.style.background = 'var(--accent)';
+  }
+}
+
+/* ===== ОБЩИЕ КОМПОНЕНТЫ ===== */
+function getTodayLessons() {
+  const today = new Date();
+  const day = currentUser.schedule.find(d => new Date(d.date).toDateString() === today.toDateString());
+  return day ? day.lessons : [];
+}
+function gpaRing(gpa, size = 120, stroke = 10) {
+  const max = 5, r = (size - stroke) / 2, c = 2 * Math.PI * r, pct = Math.min(gpa / max, 1), dash = c * pct;
+  return `<div class="gpa-circle" style="width:${size}px;height:${size}px">
+    <svg width="${size}" height="${size}">
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--border)" stroke-width="${stroke}"/>
+      <circle class="gpa-fill" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--primary)" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="0 ${c}" data-dash="${dash}" data-c="${c}" style="transition:stroke-dasharray 1s ease-out"/>
+    </svg>
+    <div class="val"><div class="n">${gpa.toFixed(1)}</div><div class="l">из 5.0</div></div>
+  </div>`;
+}
+function updateNotifDot() {
+  if (!currentUser) return;
+  const unread = currentUser.notifications.filter(n => !n.read).length;
+  document.getElementById('notif-dot').classList.toggle('hidden', unread === 0);
+}
+
+function getCountdownStr() {
+  if (!currentUser.grades.sessionStart) return 'Дата сессии неизвестна';
+  const today = new Date(); today.setHours(0,0,0,0);
+  const start = new Date(currentUser.grades.sessionStart); start.setHours(0,0,0,0);
+  const end = new Date(currentUser.grades.sessionEnd); end.setHours(0,0,0,0);
+  
+  if (today > end) return 'Сессия завершена';
+  if (today >= start) return 'Идут экзамены!';
+  
+  const diff = Math.ceil((start - today) / (1000 * 60 * 60 * 24));
+  return `До сессии ${diff} дн.`;
+}
+
+/* ===== RENDER: DASHBOARD ===== */
+function renderDashboard() {
+  const u = currentUser;
+  const today = getTodayLessons();
+  
+  document.getElementById('topbar-greeting').textContent = `Добрый день, ${u.profile.firstName}`;
+  document.getElementById('topbar-avatar').textContent = u.profile.firstName[0] + u.profile.lastName[0];
+  document.getElementById('topbar-name').innerHTML = u.profile.lastName + (u.profile.isStarosta ? ' <span style="font-size:9px;background:var(--accent);color:#fff;padding:2px 4px;border-radius:4px;vertical-align:middle;margin-left:4px">Староста</span>' : '');
+
+  const countdown = getCountdownStr();
+
+  const schedHtml = today.length === 0 ? '<div class="empty-state"><i class="ti ti-coffee"></i><p>Сегодня занятий нет</p></div>' :
+    today.map(l => `
+      <div class="sched-item">
+        <div class="sched-time">${l.start}<br><span style="font-size:11px">${l.end}</span></div>
+        <div class="sched-info">
+          <div class="subj">${l.subject} ${l.status === 'exam' ? '<span style="color:var(--danger);font-size:10px;font-weight:700">ЭКЗАМЕН</span>' : ''}</div>
+          <div class="room">${l.room} · ${l.teacher}</div>
+          ${l.link ? `<a href="${l.link}" target="_blank" class="mts-link-btn"><i class="ti ti-video"></i> Подключиться (MTS Link)</a>` : ''}
+        </div>
+      </div>`).join('');
+
+  const debtsCount = (u.grades.debts || []).length;
+  const reqsCount = u.requests.filter(r => calculateRequestStatus(r) !== 'ready').length;
+  const daysToSession = countdown.includes('Идут') ? 0 : countdown.includes('завершена') ? '—' : countdown.replace(/\D/g, '');
+
+  document.getElementById('page-dashboard').innerHTML = `
+    <div class="dash-grid">
+      <div>
+        <div class="hero-banner">
+          <div class="hero-top">
+            <div class="hero-countdown"><i class="ti ti-clock"></i> ${countdown}</div>
+          </div>
+          <h2>Примите участие в стипендиальном конкурсе Фонда Владимира Потанина</h2>
+          <a href="https://www.ranepa.ru/sveden/grants/?ysclid=mwey4a2v2x34255262" target="_blank" class="hero-btn">
+            Подробнее <i class="ti ti-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="lms-widget" onclick="showPage('lms')">
+          <div>
+            <h3>Система дистанционного обучения</h3>
+            <p>Все учебные курсы, вебинары и материалы</p>
+          </div>
+          <button class="btn-lms" onclick="event.stopPropagation(); showPage('lms')">Перейти в СДО <i class="ti ti-arrow-right"></i></button>
+        </div>
+
+        <div class="stat-grid">
+          <div class="widget-stat">
+            <div class="val" style="color:var(--accent)">${u.grades.gpa.toFixed(1)}</div>
+            <div class="lbl">GPA</div>
+          </div>
+          <div class="widget-stat">
+            <div class="val">${daysToSession}</div>
+            <div class="lbl">дней до сессии</div>
+          </div>
+          <div class="widget-stat">
+            <div class="val" style="${debtsCount > 0 ? 'color:var(--danger)' : ''}">${debtsCount}</div>
+            <div class="lbl">задолженностей</div>
+          </div>
+          <div class="widget-stat">
+            <div class="val">${reqsCount}</div>
+            <div class="lbl">активных заявок</div>
+          </div>
+        </div>
+
+        <div class="widget-card">
+          <div class="widget-title"><span><i class="ti ti-list-check" style="color:var(--accent);margin-right:8px"></i> Важное сегодня</span></div>
+          ${(u.todayTasks || []).map(t => `<div class="task-item"><i class="ti ti-circle-check"></i><span>${t}</span></div>`).join('') || '<div class="empty-state"><i class="ti ti-mood-smile"></i><p>Все задачи выполнены</p></div>'}
+        </div>
+
+        <div class="widget-card">
+          <div class="widget-title">
+            <span><i class="ti ti-star" style="color:var(--accent);margin-right:8px"></i> Студенческий офис</span>
+            <span class="link" onclick="showPage('requests')">Все услуги <i class="ti ti-arrow-right"></i></span>
+          </div>
+          <div class="request-row">
+            <div class="request-card" onclick="showPage('requests')" style="border-style:dashed;justify-content:center;align-items:center;min-width:100%">
+              <i class="ti ti-plus"></i><div class="title" style="margin:0">Заказать справку</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="widget-card">
+          <div class="widget-title"><span><i class="ti ti-calendar" style="color:var(--primary);margin-right:8px"></i> Расписание на сегодня</span><span class="link" onclick="showPage('schedule')">Всё <i class="ti ti-arrow-right"></i></span></div>
+          ${schedHtml}
+          <button class="btn-primary" style="margin-top:20px;background:var(--bg);color:var(--text);border:1px solid var(--border);" onclick="showPage('schedule')">Полное расписание</button>
+        </div>
+        
+        <div class="widget-card">
+          <div class="widget-title"><span><i class="ti ti-ticket" style="color:var(--accent);margin-right:8px"></i> Мероприятия</span><span class="link" onclick="showPage('events')">Все <i class="ti ti-arrow-right"></i></span></div>
+          <div class="event-item" onclick="showPage('events')">
+            <div class="event-icon"><i class="ti ti-ticket"></i></div>
+            <div class="event-info">
+              <div class="title">Студенческий карьерный форум «Будущее начинается здесь»</div>
+              <div class="meta"><span><i class="ti ti-clock"></i> 25 ноября, 11:00</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ===== RENDER: LMS ===== */
+function renderLMS() {
+  const courses = currentUser.lmsCourses || [];
+  
+  const coursesHtml = courses.map(c => {
+    const displayMats = c.materials.slice(0, 3);
+    const extra = c.materials.length > 3 ? `<div class="lms-mat-item" style="font-style:italic">+ еще ${c.materials.length - 3}...</div>` : '';
+    
+    return `
+    <div class="lms-course-card" onclick="openCourseDetails(${c.id})">
+      <div>
+        <div class="lms-course-header">
+          <div class="lms-course-icon"><i class="ti ti-book"></i></div>
+          <div>
+            <div class="lms-course-title">${c.title}</div>
+            <div class="lms-course-teacher">${c.teacher}</div>
+          </div>
+        </div>
+        <div class="lms-progress-wrap">
+          <div class="lms-progress-text"><span>Прогресс</span><span>${c.progress}%</span></div>
+          <div class="lms-progress"><div class="lms-progress-bar" style="width:${c.progress}%"></div></div>
+        </div>
+      </div>
+      <div class="lms-materials">
+        ${displayMats.map(m => `<div class="lms-mat-item"><i class="ti ti-file-text" style="color:var(--text-2)"></i> ${m}</div>`).join('')}
+        ${extra}
+      </div>
+    </div>
+  `;
+  }).join('') || '<div class="empty-state"><i class="ti ti-book-off"></i><p>У вас пока нет активных курсов</p></div>';
+
+  document.getElementById('page-lms').innerHTML = `
+    <div class="widget-card" style="background:var(--bg-2);border-left:4px solid var(--accent);margin-bottom:24px">
+      <div style="font-weight:700;font-size:16px;margin-bottom:8px">Электронное обучение</div>
+      <div style="font-size:14px;color:var(--text-2)">Здесь собраны все ваши дисциплины, лекции, тесты и домашние задания.</div>
+    </div>
+
+    <div class="lms-course-grid">
+      ${coursesHtml}
+    </div>
+  `;
+}
+
+function openCourseDetails(courseId) {
+  const course = currentUser.lmsCourses.find(c => c.id === courseId);
+  if (!course) return;
+
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:20px">
+        <div class="lms-course-icon"><i class="ti ti-book"></i></div>
+        <div>
+          <h3 style="margin:0">${course.title}</h3>
+          <p class="sub" style="margin:0;margin-top:4px">${course.teacher}</p>
+        </div>
+      </div>
+      
+      <div class="lms-progress-wrap">
+        <div class="lms-progress-text"><span>Общий прогресс по курсу</span><span>${course.progress}%</span></div>
+        <div class="lms-progress"><div class="lms-progress-bar" style="width:${course.progress}%"></div></div>
+      </div>
+
+      <div style="margin-top:24px">
+        <div style="font-weight:700;margin-bottom:12px;font-size:14px">Материалы и задания</div>
+        <div class="doc-list">
+          ${course.materials.map((m, idx) => `
+            <div class="doc-item" style="cursor:pointer" onclick="openMaterial(${course.id}, ${idx})">
+              <span><i class="ti ti-file-text" style="color:var(--primary);margin-right:8px"></i>${esc(m)}</span>
+              <i class="ti ti-chevron-right" style="color:var(--text-2)"></i>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-prim" onclick="this.closest('.modal-bg').remove()">Закрыть</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function openMaterial(courseId, idx) {
+  const course = currentUser.lmsCourses.find(c => c.id === courseId);
+  if (course && course.materials[idx]) {
+    toast('Переход к материалу: ' + course.materials[idx], 'info');
+  }
+}
+
+/* ===== RENDER: SCHEDULE ===== */
+let scheduleView = 'student';
+let expandedTeacher = null;
+
+function toggleTeacher(name) {
+  expandedTeacher = (expandedTeacher === name) ? null : name;
+  renderSchedule();
+}
+
+function renderSchedule() {
+  const schedule = currentUser.schedule;
+  const now = new Date();
+  const todayStr = now.toDateString();
+  
+  const bellsHtml = `
+    <div class="bell-schedule">
+      <div class="bell-item"><div class="num">1 пара</div><div class="time">09:00 – 10:30</div></div>
+      <div class="bell-item"><div class="num">2 пара</div><div class="time">10:45 – 12:15</div></div>
+      <div class="bell-item"><div class="num">3 пара</div><div class="time">13:00 – 14:30</div></div>
+      <div class="bell-item"><div class="num">4 пара</div><div class="time">14:45 – 16:15</div></div>
+    </div>
+  `;
+
+  let contentHtml = '';
+
+  if (scheduleView === 'student') {
+    let html = '';
+    let weekHtml = '';
+    let currentWeekStart = null;
+    
+    schedule.forEach((d, index) => {
+      const dateObj = new Date(d.date);
+      if (!currentWeekStart || dateObj.getDay() === 1 || index === 0) {
+        if (weekHtml) html += `<div class="widget-card">${weekHtml}</div>`;
+        weekHtml = '';
+        currentWeekStart = dateObj;
+      }
+      
+      const isToday = dateObj.toDateString() === todayStr;
+      const lessons = d.lessons.length === 0 ? '<div class="empty-state"><i class="ti ti-calendar-off"></i><p>Нет занятий</p></div>' :
+        d.lessons.map(l => `
+          <div class="sched-item" style="${l.status === 'exam' ? 'background:rgba(176,141,87,.05); padding:12px; border-radius:8px; border:none; margin-bottom:8px' : ''}">
+            <div class="sched-time">${l.start}<br><span style="font-size:11px">${l.end}</span></div>
+            <div class="sched-info">
+              <div class="subj" style="color:${l.status === 'exam' ? 'var(--accent)' : 'var(--text)'}">${l.subject} <span style="font-size:11px;font-weight:400">(${l.type})</span></div>
+              <div class="room">${l.room} · ${l.teacher}</div>
+              ${l.link ? `<a href="${l.link}" target="_blank" class="mts-link-btn"><i class="ti ti-video"></i> Подключиться</a>` : ''}
+            </div>
+          </div>`).join('');
+      
+      weekHtml += `
+        <div style="${isToday ? 'border-left:3px solid var(--primary);padding-left:16px;margin-left:-16px;' : ''} margin-bottom:16px">
+          <div style="font-weight:700;margin-bottom:12px;font-size:14px;color:${isToday ? 'var(--primary)' : 'var(--text)'}">
+            ${DAYS[dateObj.getDay()]}, ${fmtDate(dateObj)} ${isToday ? '<span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;margin-left:8px">Сегодня</span>' : ''}
+          </div>
+          ${lessons}
+        </div>`;
+    });
+    if (weekHtml) html += `<div class="widget-card">${weekHtml}</div>`;
+    contentHtml = html;
+  } else {
+    const uniqueTeachers = [...new Set(TEACHER_SCHEDULE.map(t => t.name))];
+    
+    contentHtml = `
+      <div class="widget-card">
+        <div class="widget-title">Расписание преподавателей</div>
+        ${uniqueTeachers.map(name => {
+          const lessons = TEACHER_SCHEDULE.filter(t => t.name === name);
+          const isExpanded = expandedTeacher === name;
+          
+          return `
+            <div class="teacher-item">
+              <div class="teacher-header" onclick="toggleTeacher('${name}')">
+                <span>${name}</span>
+                <i class="ti ti-chevron-${isExpanded ? 'up' : 'down'}" style="color:var(--primary);"></i>
+              </div>
+              ${isExpanded ? `
+                <div class="teacher-lessons">
+                  ${lessons.map(l => `
+                    <div class="sched-item" style="align-items:flex-start;">
+                      <div class="sched-time" style="width:60px">${l.day}<br><span style="font-size:11px">${l.time}</span></div>
+                      <div class="sched-info">
+                        <div class="subj">${l.subject}</div>
+                        <a href="${l.link}" target="_blank" class="mts-link-btn"><i class="ti ti-video"></i> Подключиться (MTS Link)</a>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  document.getElementById('page-schedule').innerHTML = `
+    <div style="max-width:800px">
+      <div class="tabs" style="margin-bottom:16px">
+        <button class="tab ${scheduleView === 'student' ? 'active' : ''}" onclick="scheduleView='student';expandedTeacher=null;renderSchedule()">Моё расписание</button>
+        <button class="tab ${scheduleView === 'teacher' ? 'active' : ''}" onclick="scheduleView='teacher';renderSchedule()">Преподаватели</button>
+      </div>
+
+      <div class="widget-card" style="padding:16px;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-weight:600;font-size:14px">Расписание звонков</div>
+          <button class="btn-sm" onclick="exportICS()" style="padding:6px 12px;font-size:11px;background:var(--bg-2);color:var(--text);border:1px solid var(--border)"><i class="ti ti-calendar-plus"></i> В календарь (.ics)</button>
+        </div>
+        ${bellsHtml}
+      </div>
+      ${contentHtml}
+    </div>
+  `;
+}
+
+function exportICS() {
+  let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Kampus//Student Schedule//RU\n";
+  currentUser.schedule.forEach(day => {
+    const d = new Date(day.date);
+    const dateStr = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+    
+    day.lessons.forEach(lesson => {
+      if (lesson.status === 'cancelled') return;
+      const startStr = lesson.start.replace(':', '') + '00';
+      const endStr = lesson.end.replace(':', '') + '00';
+      ics += "BEGIN:VEVENT\n";
+      ics += `SUMMARY:${lesson.subject} (${lesson.type})\n`;
+      ics += `LOCATION:${lesson.room}\n`;
+      ics += `DESCRIPTION:Преподаватель: ${lesson.teacher}${lesson.link ? '\\nСсылка: ' + lesson.link : ''}\n`;
+      ics += `DTSTART:${dateStr}T${startStr}\n`;
+      ics += `DTEND:${dateStr}T${endStr}\n`;
+      ics += "END:VEVENT\n";
+    });
+  });
+  ics += "END:VCALENDAR";
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'schedule.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  toast('Файл расписания (.ics) скачан', 'success');
+}
+
+/* ===== RENDER: SESSION ===== */
+function renderSession() {
+  const list = currentUser.session.map(s => `
+    <div class="session-card">
+      <div class="session-header">
+        <div class="session-subject">${s.subject}</div>
+        <span class="session-type ${s.type === 'Экзамен' ? 'exam' : 'credit'}">${s.type}</span>
+      </div>
+      <div class="session-meta">
+        <span><i class="ti ti-calendar"></i> ${s.date}, ${s.time}</span>
+        <span><i class="ti ti-user"></i> ${s.teacher}</span>
+        <span><i class="ti ti-map-pin"></i> ауд. ${s.room}</span>
+      </div>
+      <div class="session-consult"><i class="ti ti-info-circle"></i> ${s.consult}</div>
+      <button class="questions-btn" onclick="toggleQuestions(${s.id})">
+        <i class="ti ti-list-details"></i> Вопросы к аттестации
+      </button>
+      <ul class="question-list hidden" id="questions-${s.id}">
+        ${s.questions.map(q => `<li>${q}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+  
+  document.getElementById('page-session').innerHTML = `
+    <div style="max-width:800px">
+      <div class="widget-card" style="background:var(--bg-2);border-left:4px solid var(--accent)">
+        <div style="font-weight:700;font-size:16px;margin-bottom:8px">Зимняя экзаменационная сессия 2026/2027</div>
+        <div style="font-size:14px;color:var(--text-2)">Убедительная просьба ознакомиться с датами и вопросами заранее. Расписание консультаций указано в карточках.</div>
+      </div>
+      ${list}
+    </div>
+  `;
+}
+function toggleQuestions(id) {
+  document.getElementById(`questions-${id}`).classList.toggle('hidden');
+}
+
+/* ===== RENDER: PORTFOLIO ===== */
+function renderPortfolio() {
+  const items = (currentUser.portfolio || []).map(p => `
+    <div class="portfolio-card">
+      <div class="portfolio-icon"><i class="ti ti-certificate"></i></div>
+      <div class="portfolio-info">
+        <div class="title">${esc(p.title)}</div>
+        <div class="meta">${p.type} · ${p.date}</div>
+      </div>
+    </div>
+  `).join('') || '<div class="empty-state"><i class="ti ti-folder-open"></i><p>В портфолио пока нет достижений</p></div>';
+
+  document.getElementById('page-portfolio').innerHTML = `
+    <div class="widget-card">
+      <div class="widget-title">
+        <span>Мои достижения</span>
+        <button class="btn-sm" onclick="openUploadPortfolio()"><i class="ti ti-upload"></i> Добавить</button>
+      </div>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:20px">Достижения в учебе, спорте, науке и общественной жизни. Учитываются при назначении повышенной стипендии.</p>
+      <div class="portfolio-grid">
+        ${items}
+      </div>
+    </div>
+  `;
+}
+
+function openUploadPortfolio() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>Новое достижение</h3>
+      <p class="sub">Загрузите документ или фото грамоты/диплома.</p>
+      <div class="field">
+        <label>Название</label>
+        <input type="text" id="port-title" placeholder="Например: Олимпиада по праву">
+      </div>
+      <div class="field">
+        <label>Тип достижения</label>
+        <select id="port-type" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px">
+          <option value="Диплом">Диплом</option>
+          <option value="Грамота">Грамота</option>
+          <option value="Сертификат">Сертификат</option>
+          <option value="Благодарность">Благодарность</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Файл</label>
+        <input type="file" disabled style="opacity:0.5;cursor:not-allowed" title="Загрузка файлов недоступна в демо">
+        <div style="font-size:11px;color:var(--text-2);margin-top:4px">* В демо-версии загрузка файлов отключена</div>
+      </div>
+      <div class="actions">
+        <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+        <button class="btn-prim" onclick="submitPortfolio(this)">Сохранить</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function submitPortfolio(btn) {
+  const title = document.getElementById('port-title').value.trim();
+  const type = document.getElementById('port-type').value;
+  
+  if (!title) {
+    toast('Пожалуйста, укажите название', 'error');
+    return;
+  }
+  
+  btn.closest('.modal-bg').remove();
+  
+  const today = new Date();
+  const dateStr = `${String(today.getDate()).padStart(2,'0')}.${String(today.getMonth()+1).padStart(2,'0')}.${today.getFullYear()}`;
+
+  if (!currentUser.portfolio) currentUser.portfolio = [];
+  currentUser.portfolio.unshift({
+    id: uid(),
+    title: title,
+    type: type,
+    date: dateStr
+  });
+  saveDB();
+  
+  toast('Достижение добавлено в портфолио!', 'success');
+  renderPortfolio();
+}
+
+/* ===== RENDER: GRADES ===== */
+let gradesTab = 'current';
+function renderGrades() {
+  const g = currentUser.grades;
+  
+  let content = '';
+  if (gradesTab === 'current') {
+    const items = (g.disciplines || []).map(d => `
+      <div class="disc-row">
+        <div class="name">${d.name} <div style="font-size:12px;color:var(--text-2);font-weight:400">${d.type} · ${d.credits} з.е.</div></div>
+        <div class="grade" style="color:${d.grade === 5 ? 'var(--accent)' : 'var(--primary)'}">${d.grade}</div>
+      </div>
+    `).join('');
+    
+    const isHighScholarship = g.gpa >= 4.5;
+    const scholarshipWidget = `
+      <div class="scholarship-widget">
+        <h4><i class="ti ti-coin"></i> Прогноз стипендии</h4>
+        <p>${isHighScholarship 
+          ? 'Ваш текущий GPA позволяет претендовать на <b>повышенную стипендию (6 000 ₽)</b>. Так держать!' 
+          : 'Если сдадите все экзамены на «отлично», сможете претендовать на <b>повышенную стипендию (6 000 ₽)</b>.'}</p>
+        <p style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:600">Ваш рейтинг: ${currentUser.profile.groupRank}-й из ${currentUser.profile.groupTotal} в группе</p>
+      </div>
+    `;
+
+    content = `<div class="widget-card" style="text-align:center;margin-bottom:24px">
+        <div class="widget-title" style="justify-content:center">Текущий GPA</div>
+        ${gpaRing(g.gpa, 160, 12)}
+        ${scholarshipWidget}
+      </div>
+      <div class="widget-card">
+        <div class="widget-title">Текущие дисциплины</div>
+        ${items || '<div class="empty-state"><i class="ti ti-book-off"></i><p>Дисциплины не найдены</p></div>'}
+      </div>`;
+  } 
+  else if (gradesTab === 'history') {
+    content = (g.history || []).map(h => `
+      <div class="widget-card">
+        <div class="widget-title" style="font-size:16px;margin-bottom:12px">${h.sem}</div>
+        ${h.items.map(i => `
+          <div class="disc-row">
+            <div class="name">${i.name} <div style="font-size:12px;color:var(--text-2);font-weight:400">${i.teacher}</div></div>
+            <div class="grade" style="font-size:16px;color:${i.grade === 5 ? 'var(--accent)' : 'var(--primary)'}">${i.grade}</div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('') || '<div class="empty-state"><i class="ti ti-book-off"></i><p>Нет данных</p></div>';
+  } 
+  else if (gradesTab === 'curriculum') {
+    content = `<div class="widget-card" style="overflow-x:auto">
+      <table>
+        <tr><th>Дисциплина</th><th>З.Е.</th><th>Форма</th><th>Семестр</th><th>Статус</th></tr>
+        ${(g.curriculum || []).map(c => `<tr><td>${c.name}</td><td>${c.credits}</td><td>${c.form}</td><td>${c.sem}</td><td style="color:${c.status === 'Сдано' ? 'var(--success)' : 'var(--warning)'}">${c.status}</td></tr>`).join('')}
+      </table>
+    </div>`;
+  } 
+  else if (gradesTab === 'debts') {
+    content = (g.debts || []).length === 0 ? `<div class="widget-card" style="text-align:center;padding:40px;color:var(--success)"><i class="ti ti-check" style="font-size:48px;margin-bottom:12px"></i><br>У вас нет академических задолженностей!</div>` :
+      (g.debts || []).map(d => `
+        <div class="debt-card">
+          <div class="info">
+            <div class="title">${d.subject}</div>
+            <div class="sub">Преподаватель: ${d.teacher} · Пересдача: ${d.date}</div>
+          </div>
+          <button class="btn-sm" onclick="this.disabled=true; this.textContent='Записан ✓'; this.style.background='var(--success)'; toast('Вы записаны на пересдачу!', 'success')">Записаться</button>
+        </div>
+      `).join('');
+  }
+
+  document.getElementById('page-grades').innerHTML = `
+    <div class="tabs">
+      <button class="tab ${gradesTab === 'current' ? 'active' : ''}" onclick="gradesTab='current';renderGrades()">Текущие</button>
+      <button class="tab ${gradesTab === 'history' ? 'active' : ''}" onclick="gradesTab='history';renderGrades()">Зачётка</button>
+      <button class="tab ${gradesTab === 'curriculum' ? 'active' : ''}" onclick="gradesTab='curriculum';renderGrades()">Учебный план</button>
+      <button class="tab ${gradesTab === 'debts' ? 'active' : ''}" onclick="gradesTab='debts';renderGrades()">Долги (${(g.debts||[]).length})</button>
+    </div>
+    ${content}
+  `;
+
+  setTimeout(() => {
+    const fillCircle = document.querySelector('.gpa-fill');
+    if (fillCircle) {
+      const dash = fillCircle.getAttribute('data-dash');
+      const c = fillCircle.getAttribute('data-c');
+      fillCircle.setAttribute('stroke-dasharray', `${dash} ${c}`);
+    }
+  }, 50);
+}
+
+/* ===== RENDER: REQUESTS ===== */
+let reqTab = 'orders';
+function renderRequests() {
+  const u = currentUser;
+  
+  if (reqTab === 'orders') {
+    const reqCards = u.requests.map(r => {
+      const status = calculateRequestStatus(r);
+      const isDone = status === 'ready';
+      const isProcessing = status === 'processing';
+      
+      return `
+      <div class="req-card">
+        <div class="hdr">
+          <div>
+            <div style="font-weight:600;font-size:15px">${r.type}</div>
+            <div style="font-size:12px;color:var(--text-2)">${r.id} · подана ${fmtDate(new Date(r.createdAt))}</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-step done">
+            <div class="progress-dot"><i class="ti ti-check"></i></div>
+            <span>Подана</span>
+          </div>
+          <div class="progress-step ${isProcessing || isDone ? 'done' : ''}">
+            <div class="progress-dot"><i class="ti ti-check"></i></div>
+            <span>В деканате</span>
+          </div>
+          <div class="progress-step ${isDone ? 'done' : isProcessing ? 'active' : ''}">
+            <div class="progress-dot"><i class="${isDone ? 'ti ti-check' : 'ti ti-clock'}"></i></div>
+            <span>Готова</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('') || '<div class="empty-state"><i class="ti ti-inbox"></i><p>Нет активных заявок</p></div>';
+
+    document.getElementById('page-requests').innerHTML = `
+      <div class="tabs">
+        <button class="tab active" onclick="reqTab='orders';renderRequests()">Справки</button>
+        <button class="tab" onclick="reqTab='feedback';renderRequests()">Обратная связь</button>
+      </div>
+      <div class="widget-card">
+        <div class="widget-title">Заказать справку</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+          ${REQUEST_TYPES.map(t => `
+            <div class="request-card" onclick="openRequestForm('${t.id}')" style="background:var(--bg)">
+              <i class="ti ${t.icon}"></i><div><div class="title">${t.title}</div><div class="date">${t.est}</div></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="widget-card">
+        <div class="widget-title">Мои заявки</div>
+        ${reqCards}
+      </div>
+    `;
+  } else {
+    const feedbacks = (u.feedback || []).map(f => `
+      <div class="req-card">
+        <div class="hdr">
+          <div>
+            <div style="font-weight:600;font-size:15px">${f.category}</div>
+            <div style="font-size:12px;color:var(--text-2)">от ${fmtDate(new Date(f.date))}</div>
+          </div>
+          <span style="color:${f.status === 'Рассмотрено' ? 'var(--success)' : 'var(--warning)'};font-weight:600;font-size:12px">${f.status}</span>
+        </div>
+        <div style="font-size:14px;color:var(--text);background:var(--bg);padding:12px;border-radius:8px">${esc(f.text)}</div>
+      </div>
+    `).join('') || '<div class="empty-state"><i class="ti ti-message-off"></i><p>Вы еще не отправляли обращений</p></div>';
+
+    document.getElementById('page-requests').innerHTML = `
+      <div class="tabs">
+        <button class="tab" onclick="reqTab='orders';renderRequests()">Справки</button>
+        <button class="tab active" onclick="reqTab='feedback';renderRequests()">Обратная связь</button>
+      </div>
+      <div class="widget-card">
+        <div class="widget-title">Обратная связь с деканатом</div>
+        <p style="font-size:14px;color:var(--text-2);margin-bottom:16px">Есть идея, как улучшить учебу, или возникла проблема? Напишите нам.</p>
+        <button class="btn-primary" onclick="openFeedbackForm()"><i class="ti ti-edit"></i> Написать обращение</button>
+      </div>
+      <div class="widget-card">
+        <div class="widget-title">Мои обращения</div>
+        ${feedbacks}
+      </div>
+    `;
+  }
+}
+
+function openFeedbackForm() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>Новое обращение</h3>
+      <p class="sub">Мы читаем каждое сообщение.</p>
+      <div class="field">
+        <label>Тип обращения</label>
+        <select id="fb-type" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px">
+          <option value="Предложение">Предложение (идея)</option>
+          <option value="Жалоба">Жалоба на проблему</option>
+          <option value="Вопрос">Вопрос деканату</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Текст обращения</label>
+        <textarea id="fb-text" rows="4" placeholder="Опишите вашу идею или проблему..." style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;resize:vertical"></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+        <button class="btn-prim" onclick="submitFeedback(this)">Отправить</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function submitFeedback(btn) {
+  const type = document.getElementById('fb-type').value;
+  const text = document.getElementById('fb-text').value.trim();
+  
+  if (!text) {
+    toast('Пожалуйста, напишите текст обращения', 'error');
+    return;
+  }
+  
+  btn.closest('.modal-bg').remove();
+  
+  if (!currentUser.feedback) currentUser.feedback = [];
+  currentUser.feedback.unshift({
+    id: uid(),
+    category: type,
+    text: text,
+    date: Date.now(),
+    status: 'В обработке'
+  });
+  saveDB();
+  
+  toast('Обращение отправлено в деканат', 'success');
+  renderRequests();
+}
+
+function openRequestForm(id) {
+  const t = REQUEST_TYPES.find(x => x.id === id);
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>${t.title}</h3>
+      <p class="sub">${t.desc} · Срок: ${t.est}</p>
+      <div class="actions"><button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button><button class="btn-prim" onclick="submitRequest('${t.id}', this)">Подать</button></div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function submitRequest(id, btn) {
+  const t = REQUEST_TYPES.find(x => x.id === id);
+  const newReq = { id: 'REQ-' + Date.now().toString().slice(-6), type: t.title, createdAt: Date.now(), status: 'submitted' };
+  currentUser.requests.unshift(newReq);
+  saveDB();
+  btn.closest('.modal-bg').remove();
+  toast('Заявка подана', 'success');
+  renderRequests();
+}
+
+setInterval(() => {
+  if (!currentUser) return;
+  let changed = false;
+  currentUser.requests.forEach(r => {
+    const newStatus = calculateRequestStatus(r);
+    if (newStatus !== r.status) {
+      r.status = newStatus;
+      changed = true;
+    }
+  });
+  if (changed) {
+    saveDB();
+    if (currentPage === 'requests' && reqTab === 'orders') renderRequests();
+  }
+}, 3000);
+
+/* ===== RENDER: CANTEEN ===== */
+function renderCanteen() {
+  const menu = {
+    'Пн': [{ title: 'Борщ', price: '150 ₽' }, { title: 'Котлета с пюре', price: '250 ₽' }, { title: 'Компот', price: '50 ₽' }],
+    'Вт': [{ title: 'Суп-лапша', price: '130 ₽' }, { title: 'Рыба с рисом', price: '280 ₽' }, { title: 'Морс', price: '60 ₽' }],
+    'Ср': [{ title: 'Щи', price: '150 ₽' }, { title: 'Куриное филе', price: '260 ₽' }, { title: 'Чай', price: '30 ₽' }],
+    'Чт': [{ title: 'Грибной крем-суп', price: '180 ₽' }, { title: 'Плов с говядиной', price: '300 ₽' }, { title: 'Сок', price: '80 ₽' }],
+    'Пт': [{ title: 'Уха', price: '170 ₽' }, { title: 'Макароны с сыром', price: '200 ₽' }, { title: 'Кофе', price: '100 ₽' }]
+  };
+
+  const menuHtml = Object.entries(menu).map(([day, items]) => `
+    <div class="menu-day">
+      <h4>${day}</h4>
+      ${items.map(i => `
+        <div class="menu-item">
+          <div class="title">${i.title}</div>
+          <div class="price">${i.price}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  document.getElementById('page-canteen').innerHTML = `
+    <div class="widget-card">
+      <div class="widget-title">Меню столовой на неделю</div>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:20px">Актуальное меню в корпусе №1. Цены указаны за порцию. <br><small>Сб-Вс: выходной</small></p>
+      <div class="menu-grid">
+        ${menuHtml}
+      </div>
+    </div>
+  `;
+}
+
+/* ===== RENDER: MEDICAL ===== */
+function renderMedical() {
+  const history = (currentUser.medicalHistory || []).map(m => `
+    <div class="med-item">
+      <div class="info">
+        <div class="title">${esc(m.symptom)}</div>
+        <div class="date">${m.date} в ${m.time}</div>
+      </div>
+      <div style="color:${m.status === 'Завершен' ? 'var(--success)' : 'var(--warning)'};font-weight:600;font-size:13px">${m.status}</div>
+    </div>
+  `).join('') || '<div class="empty-state"><i class="ti ti-heart-handshake"></i><p>Нет истории приёмов</p></div>';
+
+  document.getElementById('page-medical').innerHTML = `
+    <div class="widget-card">
+      <div class="widget-title">Запись в медпункт</div>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:16px">Если вам нездоровится, оставьте заявку, и врач свяжется с вами.</p>
+      <button class="btn-primary" onclick="openMedicalForm()"><i class="ti ti-plus"></i> Записаться на приём</button>
+    </div>
+    <div class="widget-card">
+      <div class="widget-title">История приёмов</div>
+      <div class="med-history">
+        ${history}
+      </div>
+    </div>
+  `;
+}
+
+function openMedicalForm() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>Запись в медпункт</h3>
+      <p class="sub">Опишите симптомы, и мы подберём удобное время.</p>
+      <div class="field">
+        <label>Симптомы / Причина</label>
+        <textarea id="med-symptom" rows="3" placeholder="Например: болит голова, температура..." style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;resize:vertical"></textarea>
+      </div>
+      <div class="field">
+        <label>Желаемое время</label>
+        <select id="med-time" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px">
+          <option value="12:00">Сегодня, 12:00</option>
+          <option value="14:00">Сегодня, 14:00</option>
+          <option value="16:00">Сегодня, 16:00</option>
+          <option value="09:00">Завтра, 09:00</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+        <button class="btn-prim" onclick="submitMedical(this)">Записаться</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function submitMedical(btn) {
+  const symptom = document.getElementById('med-symptom').value.trim();
+  const time = document.getElementById('med-time').value;
+  
+  if (!symptom) {
+    toast('Пожалуйста, опишите симптомы', 'error');
+    return;
+  }
+  
+  btn.closest('.modal-bg').remove();
+  
+  const today = new Date();
+  const dateStr = `${String(today.getDate()).padStart(2,'0')}.${String(today.getMonth()+1).padStart(2,'0')}.${today.getFullYear()}`;
+
+  if (!currentUser.medicalHistory) currentUser.medicalHistory = [];
+  currentUser.medicalHistory.unshift({
+    id: uid(),
+    symptom: symptom,
+    date: dateStr,
+    time: time,
+    status: 'Ожидает приёма'
+  });
+  saveDB();
+  
+  toast('Вы записаны в медпункт!', 'success');
+  renderMedical();
+}
+
+/* ===== RENDER: SERVICES ===== */
+let servicesTab = 'docs';
+function renderServices() {
+  let content = '';
+  if (servicesTab === 'docs') {
+    content = `
+      <div class="widget-card" style="text-align:center">
+        <div class="widget-title" style="justify-content:center">Электронный пропуск</div>
+        <div class="qr-placeholder"><i class="ti ti-qrcode"></i></div>
+        <div style="font-weight:600;font-size:16px">${currentUser.profile.lastName} ${currentUser.profile.firstName}</div>
+        <div style="color:var(--text-2);font-size:13px;margin-bottom:16px">${currentUser.profile.group}</div>
+        <div style="font-size:12px;color:var(--text-2)">Действителен до 31.08.2027</div>
+      </div>
+      <div class="widget-card">
+        <div class="widget-title">Мои документы</div>
+        <div class="doc-list">
+          ${(currentUser.documents || []).map(d => `
+            <div class="doc-item">
+              <span>${d.name}</span>
+              <div style="display:flex;gap:8px;align-items:center">
+                <span style="color:var(--success);font-weight:600">${d.status}</span>
+                ${d.name === 'Студенческий билет' ? `<button class="btn-sm" onclick="openDigitalPass()" style="padding:4px 8px;font-size:11px">Предъявить</button>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (servicesTab === 'finance') {
+    const f = currentUser.finance;
+    let docsHtml = '';
+    if (f.isPayer) {
+      docsHtml = f.payments.length > 0 
+        ? f.payments.map(p => `<div class="doc-item"><span>${p.type} (${p.date})</span><span style="font-weight:600">${p.amount}</span></div>`).join('')
+        : '<div class="empty-state"><i class="ti ti-receipt-off"></i><p>Нет истории платежей</p></div>';
+    } else {
+      docsHtml = f.scholarships.length > 0
+        ? f.scholarships.map(s => `<div class="doc-item"><span>${s.type} (${s.date})</span><span style="font-weight:600;color:var(--success)">+ ${s.amount}</span></div>`).join('')
+        : '<div class="empty-state"><i class="ti ti-cash-off"></i><p>Нет начислений</p></div>';
+    }
+
+    content = `
+      <div class="widget-card">
+        <div class="widget-title">${f.isPayer ? 'Оплата обучения' : 'Стипендии и выплаты'}</div>
+        <div class="doc-list">
+          ${docsHtml}
+        </div>
+        ${f.isPayer ? `<button class="btn-primary" style="margin-top:16px" onclick="toast('Переход к оплате...', 'info')">Оплатить семестр</button>` : ''}
+      </div>
+    `;
+  } else if (servicesTab === 'dorm') {
+    const reqs = currentUser.dormRequests || [];
+    const requestsHtml = reqs.map(r => `
+      <div class="dorm-request">
+        <div class="dorm-request-header">
+          <span>${r.category}</span>
+          <span style="color:${r.status === 'Выполнено' ? 'var(--success)' : 'var(--warning)'}">${r.status}</span>
+        </div>
+        <div class="dorm-request-desc">${esc(r.desc)}</div>
+      </div>
+    `).join('') || '<div class="empty-state"><i class="ti ti-tool"></i><p>Нет активных заявок</p></div>';
+
+    const hasDebt = currentUser.dormDebt > 0;
+
+    content = `
+      <div class="widget-card">
+        <div class="widget-title">Общежитие</div>
+        <div class="info-row"><span class="l">Корпус</span><span class="v">№ 3, комната 412</span></div>
+        <div class="info-row"><span class="l">Соседи</span><span class="v">А. Смирнов, Д. Козлов</span></div>
+        
+        <div style="margin-top:16px;padding:16px;background:${hasDebt ? 'rgba(239,68,68,.05)' : 'rgba(74,124,89,.05)'};border:1px solid ${hasDebt ? 'rgba(239,68,68,.3)' : 'rgba(74,124,89,.3)'};border-radius:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-weight:600;color:${hasDebt ? 'var(--danger)' : 'var(--success)'}">${hasDebt ? 'Задолженность за ноябрь' : 'Нет задолженности'}</div>
+              <div style="font-size:24px;font-weight:700;color:var(--text)">${hasDebt ? '1 500 ₽' : '0 ₽'}</div>
+            </div>
+            ${hasDebt ? `
+            <div style="display:flex;gap:8px;flex-direction:column">
+              <button class="btn-sm" onclick="openDormPayment('card')" style="padding:10px 16px;font-size:13px"><i class="ti ti-credit-card"></i> Картой</button>
+              <button class="btn-sm" onclick="openDormPayment('sbp')" style="padding:10px 16px;font-size:13px;background:var(--bg);color:var(--text);border:1px solid var(--border)"><i class="ti ti-qrcode"></i> СБП</button>
+            </div>` : ''}
+          </div>
+        </div>
+
+        <button class="btn-primary" style="margin-top:16px" onclick="openDormRequestModal()">Сообщить о проблеме</button>
+        
+        <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:16px">
+          <div style="font-weight:600;margin-bottom:12px;font-size:14px">Мои заявки в техслужбу</div>
+          ${requestsHtml}
+        </div>
+      </div>
+    `;
+  } else if (servicesTab === 'library') {
+    content = `
+      <div class="widget-card">
+        <div class="widget-title">Библиотека</div>
+        <div class="doc-item"><span>Гражданское право (учебник)</span><span style="color:var(--warning)">Вернуть до 25.11</span></div>
+        <div class="doc-item"><span>Уголовный кодекс РФ</span><span style="color:var(--warning)">Вернуть до 28.11</span></div>
+      </div>
+    `;
+  }
+
+  document.getElementById('page-services').innerHTML = `
+    <div class="tabs">
+      <button class="tab ${servicesTab === 'docs' ? 'active' : ''}" onclick="servicesTab='docs';renderServices()">Документы</button>
+      <button class="tab ${servicesTab === 'finance' ? 'active' : ''}" onclick="servicesTab='finance';renderServices()">Финансы</button>
+      <button class="tab ${servicesTab === 'dorm' ? 'active' : ''}" onclick="servicesTab='dorm';renderServices()">Общежитие</button>
+      <button class="tab ${servicesTab === 'library' ? 'active' : ''}" onclick="servicesTab='library';renderServices()">Библиотека</button>
+    </div>
+    ${content}
+  `;
+}
+
+/* --- ЛОГИКА ДОКУМЕНТОВ --- */
+function openDigitalPass() {
+  const p = currentUser.profile;
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal" style="text-align:center">
+      <div class="digital-pass">
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--text-2);margin-bottom:12px">Электронный пропуск</div>
+        <div class="qr-large">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#fff"/>
+            <path d="M10 10h30v30H10z M20 20h10v10H20z M60 10h30v30H60z M70 20h10v10H70z M10 60h30v30H10z M20 70h10v10H20z M50 50h10v10H50z M70 50h20v10H70z M50 70h10v20H50z M70 70h10v10H70z M90 70h10v10H90z" fill="#000"/>
+          </svg>
+        </div>
+        <div style="font-size:20px;font-weight:700;font-family:var(--font-serif);margin-bottom:4px">${p.lastName} ${p.firstName}</div>
+        <div style="font-size:14px;color:var(--text-2);margin-bottom:16px">${p.group}</div>
+        <div style="display:flex;justify-content:center;align-items:center;gap:6px;color:var(--success);font-size:12px;font-weight:600">
+          <div style="width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse 1s infinite"></div> Динамический код
+        </div>
+      </div>
+      <div class="actions" style="margin-top:0">
+        <button class="btn-prim" onclick="this.closest('.modal-bg').remove()">Закрыть</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+/* --- ЛОГИКА ОПЛАТЫ ОБЩЕЖИТИЯ --- */
+function openDormPayment(method) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  
+  if (method === 'card') {
+    modal.innerHTML = `
+      <div class="modal">
+        <h3>Оплата картой</h3>
+        <p class="sub">Оплата общежития за ноябрь</p>
+        <div class="field"><label>Номер карты</label><input type="text" id="pay-card" placeholder="0000 0000 0000 0000" maxlength="19" required></div>
+        <div style="display:flex;gap:12px">
+          <div class="field" style="flex:1"><label>Срок</label><input type="text" id="pay-exp" placeholder="ММ/ГГ" maxlength="5" required></div>
+          <div class="field" style="flex:1"><label>CVC</label><input type="password" id="pay-cvc" placeholder="•••" maxlength="3" required></div>
+        </div>
+        <div class="actions">
+          <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+          <button class="btn-prim" onclick="processDormPay(this)">Оплатить 1 500 ₽</button>
+        </div>
+      </div>`;
+  } else {
+    modal.innerHTML = `
+      <div class="modal" style="text-align:center">
+        <h3>Оплата через СБП</h3>
+        <p class="sub">Отсканируйте QR-код в приложении банка</p>
+        <div class="qr-large" style="width:180px;height:180px;margin:0 auto 20px">
+          <svg viewBox="0 0 100 100">
+            <rect width="100" height="100" fill="#fff"/>
+            <path d="M10 10h30v30H10z M20 20h10v10H20z M60 10h30v30H60z M70 20h10v10H70z M10 60h30v30H10z M20 70h10v10H20z M50 50h10v10H50z M70 50h20v10H70z M50 70h10v20H50z M70 70h10v10H70z M90 70h10v10H90z" fill="#000"/>
+          </svg>
+        </div>
+        <div style="font-size:24px;font-weight:700;margin-bottom:20px">1 500 ₽</div>
+        <div class="actions" style="margin-top:0">
+          <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+          <button class="btn-prim" onclick="processDormPay(this)">Я оплатил</button>
+        </div>
+      </div>`;
+  }
+  
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function processDormPay(btn) {
+  const card = document.getElementById('pay-card');
+  const exp = document.getElementById('pay-exp');
+  const cvc = document.getElementById('pay-cvc');
+
+  if (card && (!card.value || !exp.value || !cvc.value)) {
+    toast('Пожалуйста, заполните все поля карты', 'error');
+    return;
+  }
+
+  btn.textContent = 'Обработка...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.closest('.modal-bg').remove();
+    currentUser.dormDebt = 0;
+    saveDB();
+    toast('Оплата успешно проведена!', 'success');
+    renderServices();
+  }, 1500);
+}
+
+function openDormRequestModal() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>Сообщить о проблеме</h3>
+      <p class="sub">Опишите проблему, и техслужба свяжется с вами.</p>
+      <div class="field">
+        <label>Категория</label>
+        <select id="dorm-issue-type" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px">
+          <option value="Сантехника">Сантехника (кран, труба, слив)</option>
+          <option value="Электрика">Электрика (розетка, свет, проводка)</option>
+          <option value="Мебель">Мебель (кровать, стол, стул)</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Описание проблемы</label>
+        <textarea id="dorm-issue-desc" rows="4" placeholder="Например: протекает кран на кухне..." style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;resize:vertical"></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+        <button class="btn-prim" onclick="submitDormRequest(this)">Отправить</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function submitDormRequest(btn) {
+  const type = document.getElementById('dorm-issue-type').value;
+  const desc = document.getElementById('dorm-issue-desc').value.trim();
+  
+  if (!desc) {
+    toast('Пожалуйста, опишите проблему', 'error');
+    return;
+  }
+  
+  const modal = btn.closest('.modal-bg');
+  modal.remove();
+  
+  if (!currentUser.dormRequests) currentUser.dormRequests = [];
+  currentUser.dormRequests.unshift({ 
+    id: uid(), 
+    category: type, 
+    desc: desc, 
+    date: Date.now(), 
+    status: 'Ожидает' 
+  });
+  saveDB();
+  
+  toast('Заявка в техслужбу отправлена!', 'success');
+  renderServices();
+}
+
+/* ===== RENDER: EVENTS ===== */
+function renderEvents() {
+  document.getElementById('page-events').innerHTML = `
+    <div class="widget-card">
+      <div class="widget-title">Календарь мероприятий</div>
+      <div class="event-item" onclick="openEventReg('Студенческий карьерный форум «Будущее начинается здесь»', '25 ноября, 11:00', 'пр. Вернадского, 84')">
+        <div class="event-icon"><i class="ti ti-ticket"></i></div>
+        <div class="event-info">
+          <div class="title">Студенческий карьерный форум «Будущее начинается здесь»</div>
+          <div class="meta"><span><i class="ti ti-clock"></i> 25 ноября, 11:00</span><span><i class="ti ti-map-pin"></i> пр. Вернадского, 84</span></div>
+        </div>
+      </div>
+      <div class="event-item" onclick="openEventReg('Открытая лекция «Тренды в юридической практике»', '28 ноября, 15:00', 'Ауд. 1-201')">
+        <div class="event-icon"><i class="ti ti-microphone"></i></div>
+        <div class="event-info">
+          <div class="title">Открытая лекция «Тренды в юридической практике»</div>
+          <div class="meta"><span><i class="ti ti-clock"></i> 28 ноября, 15:00</span><span><i class="ti ti-map-pin"></i> Ауд. 1-201</span></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openEventReg(title, time, place) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>Регистрация на мероприятие</h3>
+      <p class="sub" style="margin-bottom:12px;font-weight:600;color:var(--text)">${title}</p>
+      <div style="font-size:13px;color:var(--text-2);margin-bottom:20px;display:flex;gap:12px">
+        <span><i class="ti ti-clock"></i> ${time}</span>
+        <span><i class="ti ti-map-pin"></i> ${place}</span>
+      </div>
+      
+      <form id="event-reg-form" onsubmit="event.preventDefault(); showEventTicket(this, '${title}', '${place}')">
+        <div class="field">
+          <label>ФИО</label>
+          <input type="text" value="${currentUser.profile.lastName} ${currentUser.profile.firstName} ${currentUser.profile.middleName}" readonly style="background:var(--bg-2);opacity:0.7">
+        </div>
+        <div class="field">
+          <label>Группа</label>
+          <input type="text" value="${currentUser.profile.group}" readonly style="background:var(--bg-2);opacity:0.7">
+        </div>
+        <div class="field">
+          <label>Email для связи</label>
+          <input type="email" value="${esc(currentUser.profile.email)}" required>
+        </div>
+        <label class="checkbox-row" style="margin-bottom:16px">
+          <input type="checkbox" required> Согласен на обработку персональных данных
+        </label>
+        <div class="actions" style="margin-top:0">
+          <button type="button" class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+          <button type="submit" class="btn-prim">Зарегистрироваться</button>
+        </div>
+      </form>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+function showEventTicket(form, title, place) {
+  const ticketCode = 'TKT-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  
+  const modal = form.closest('.modal-bg');
+  modal.innerHTML = `
+    <div class="modal">
+      <h3 style="text-align:center;margin-bottom:20px">Билет получен!</h3>
+      
+      <div class="ticket">
+        <div class="ticket-left">
+          <div class="ticket-qr">
+            <svg viewBox="0 0 100 100">
+              <rect width="100" height="100" fill="#fff"/>
+              <path d="M10 10h30v30H10z M20 20h10v10H20z M60 10h30v30H60z M70 20h10v10H70z M10 60h30v30H10z M20 70h10v10H20z M50 50h10v10H50z M70 50h20v10H70z" fill="#000"/>
+            </svg>
+          </div>
+          <div style="font-size:10px;opacity:0.8;letter-spacing:1px;margin-top:8px">${ticketCode}</div>
+        </div>
+        <div class="ticket-right">
+          <div>
+            <div style="font-size:10px;text-transform:uppercase;color:var(--text-2);margin-bottom:4px">Мероприятие</div>
+            <div style="font-weight:700;font-size:14px;line-height:1.3;margin-bottom:12px">${title}</div>
+          </div>
+          <div>
+            <div style="font-size:10px;text-transform:uppercase;color:var(--text-2);margin-bottom:4px">Место</div>
+            <div style="font-size:12px;font-weight:500">${place}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="actions" style="flex-direction:column">
+        <a href="data:text/plain;charset=utf-8,Билет на мероприятие: ${encodeURIComponent(title)}%0AКод: ${ticketCode}" download="ticket-${ticketCode}.txt" class="btn-prim" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px"><i class="ti ti-download"></i> Скачать билет</a>
+        <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Закрыть</button>
+      </div>
+    </div>`;
+}
+
+/* ===== RENDER: NOTIFICATIONS ===== */
+let notifFilter = 'all';
+function renderNotifications() {
+  let notifs = currentUser.notifications;
+  if (notifFilter !== 'all') notifs = notifs.filter(n => n.category === notifFilter);
+  
+  const html = notifs.length === 0 ? '<div class="empty-state"><i class="ti ti-bell-off"></i><p>Нет уведомлений</p></div>' :
+    notifs.map(n => `
+    <div class="notif-item ${n.read ? '' : 'unread'}">
+      <div class="notif-icon"><i class="ti ${n.category === 'schedule' ? 'ti-calendar' : n.category === 'finance' ? 'ti-cash' : n.category === 'dekanat' ? 'ti-building-bank' : 'ti-bell'}"></i></div>
+      <div class="notif-content">
+        <div class="title">${n.title}</div>
+        <div class="text">${n.body}</div>
+        <div class="time">${new Date(n.date).toLocaleString('ru-RU', {hour:'2-digit',minute:'2-digit'})}</div>
+      </div>
+      ${!n.read ? `<button onclick="markRead('${n.id}')" style="margin-left:auto;color:var(--primary);font-size:20px" aria-label="Прочитано"><i class="ti ti-check"></i></button>` : ''}
+    </div>
+  `).join('');
+
+  document.getElementById('page-notifications').innerHTML = `
+    <div class="widget-card">
+      <div class="widget-title">
+        <span>Уведомления</span>
+        <span class="link" onclick="markAllRead()">Прочитать все</span>
+      </div>
+      <div class="notif-filter">
+        <button class="${notifFilter === 'all' ? 'active' : ''}" onclick="notifFilter='all';renderNotifications()">Все</button>
+        <button class="${notifFilter === 'schedule' ? 'active' : ''}" onclick="notifFilter='schedule';renderNotifications()">Расписание</button>
+        <button class="${notifFilter === 'finance' ? 'active' : ''}" onclick="notifFilter='finance';renderNotifications()">Финансы</button>
+        ${currentUser.profile.dekanatEnabled ? `<button class="${notifFilter === 'dekanat' ? 'active' : ''}" onclick="notifFilter='dekanat';renderNotifications()">Деканат</button>` : ''}
+      </div>
+      <div style="margin:0 -24px -24px">${html}</div>
+    </div>
+  `;
+}
+function markRead(id) {
+  const n = currentUser.notifications.find(x => x.id === id);
+  if (n) { n.read = true; saveDB(); renderNotifications(); updateNotifDot(); }
+}
+function markAllRead() {
+  currentUser.notifications.forEach(n => n.read = true);
+  saveDB(); renderNotifications(); updateNotifDot();
+  toast('Все уведомления прочитаны', 'success');
+}
+
+/* ===== RENDER: PROFILE ===== */
+function renderProfile() {
+  const p = currentUser.profile;
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  
+  const badges = [];
+  if (p.isStarosta) badges.push('<span style="background:var(--accent);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">Староста группы</span>');
+  if (p.isPayer) badges.push('<span style="background:var(--primary);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">Платная основа</span>');
+
+  document.getElementById('page-profile').innerHTML = `
+    <div class="widget-card" style="text-align:center;padding:40px">
+      <div style="width:80px;height:80px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-family:var(--font-serif);margin:0 auto 16px">
+        ${p.firstName[0]}${p.lastName[0]}
+      </div>
+      <h2 style="font-family:var(--font-serif);font-size:24px">${p.lastName} ${p.firstName} ${p.middleName}</h2>
+      <p style="color:var(--text-2);font-size:14px;margin-bottom:8px">${p.group} · ${p.course} курс</p>
+      <p style="color:var(--accent);font-size:12px;font-weight:600;margin-bottom:8px">Рейтинг в группе: ${p.groupRank}-й из ${p.groupTotal}</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px">${badges.join('')}</div>
+      <button class="btn-primary" style="max-width:300px;margin:0 auto" onclick="showPage('lms')"><i class="ti ti-school"></i> Перейти в СДО</button>
+    </div>
+    
+    <div class="dash-grid">
+      <div class="widget-card">
+        <div class="widget-title">Личные данные</div>
+        <div class="field"><label>Email</label><input type="email" id="prof-email" value="${esc(p.email)}"></div>
+        <div class="field"><label>Телефон</label><input type="tel" id="prof-phone" value="${esc(p.phone)}"></div>
+        <button class="btn-primary" onclick="saveProfile()">Сохранить</button>
+      </div>
+      
+      <div class="widget-card">
+        <div class="widget-title">Настройки</div>
+        <div class="switch-row">
+          <div><div style="font-weight:600">Тёмная тема</div></div>
+          <div class="switch ${dark?'on':''}" onclick="toggleTheme(this)"></div>
+        </div>
+        <div class="switch-row">
+          <div><div style="font-weight:600">Push-уведомления</div></div>
+          <div class="switch ${p.pushEnabled ? 'on' : ''}" onclick="toggleSetting(this, 'pushEnabled')"></div>
+        </div>
+        <div class="switch-row">
+          <div><div style="font-weight:600">Уведомления деканата</div></div>
+          <div class="switch ${p.dekanatEnabled ? 'on' : ''}" onclick="toggleSetting(this, 'dekanatEnabled')"></div>
+        </div>
+        <button class="btn-sec" style="width:100%;margin-top:16px" onclick="openChangePassword()">Сменить пароль</button>
+      </div>
+    </div>
+  `;
+}
+
+function saveProfile() {
+  const email = document.getElementById('prof-email').value.trim();
+  const phone = document.getElementById('prof-phone').value.trim();
+  
+  if (!email.includes('@') || email.length > 120) {
+    toast('Некорректный email', 'error');
+    return;
+  }
+
+  currentUser.profile.email = email;
+  currentUser.profile.phone = phone.slice(0, 30);
+  saveDB();
+  toast('Данные сохранены', 'success');
+}
+
+function toggleSetting(el, key) {
+  el.classList.toggle('on');
+  currentUser.profile[key] = el.classList.contains('on');
+  if (key === 'pushEnabled' && currentUser.profile[key]) {
+    pushWarned = false;
+  }
+  if (key === 'dekanatEnabled' && !currentUser.profile[key] && notifFilter === 'dekanat') {
+    notifFilter = 'all';
+  }
+  saveDB();
+}
+
+function toggleTheme(el) {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  storage.setItem('kampus_theme', next);
+  el.classList.toggle('on', next === 'dark');
+  document.getElementById('theme-toggle').innerHTML = next === 'dark' ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
+}
+
+function openChangePassword() {
+  const modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = `
+    <div class="modal">
+      <h3>Смена пароля</h3>
+      <div class="field"><label>Текущий пароль</label><input type="password" id="pwd-old"></div>
+      <div class="field"><label>Новый пароль</label><input type="password" id="pwd-new"></div>
+      <div class="field"><label>Повторите новый пароль</label><input type="password" id="pwd-confirm"></div>
+      <div class="actions">
+        <button class="btn-sec" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+        <button class="btn-prim" onclick="processChangePassword(this)">Сохранить</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+}
+
+async function processChangePassword(btn) {
+  const oldPwdInput = document.getElementById('pwd-old');
+  const oldPwd = oldPwdInput.value;
+  const newPwd = document.getElementById('pwd-new').value;
+  const confirmPwd = document.getElementById('pwd-confirm').value;
+
+  if (!oldPwd || !newPwd || !confirmPwd) { toast('Заполните все поля', 'error'); return; }
+  if (newPwd !== confirmPwd) { toast('Пароли не совпадают', 'error'); return; }
+  if (newPwd.length < 6) { toast('Пароль слишком короткий', 'error'); return; }
+
+  const oldHash = await sha256(oldPwd);
+  if (oldHash !== currentUser.passwordHash) { 
+    toast('Неверный текущий пароль', 'error'); 
+    oldPwdInput.value = '';
+    oldPwdInput.focus();
+    return; 
+  }
+
+  currentUser.passwordHash = await sha256(newPwd);
+  saveDB();
+  btn.closest('.modal-bg').remove();
+  toast('Пароль успешно изменён', 'success');
+}
+
+/* ===== RENDER: CONTACTS ===== */
+function renderContacts() {
+  document.getElementById('page-contacts').innerHTML = `
+    <div class="widget-card">
+      <div class="widget-title">Деканат</div>
+      <div class="info-row"><span class="l">Адрес</span><span class="v">пр. Вернадского, 84, ауд. 210</span></div>
+      <div class="info-row"><span class="l">Телефон</span><span class="v">+7 (499) 956-99-00</span></div>
+      <div class="info-row"><span class="l">Email</span><span class="v">dekanat@example.edu</span></div>
+      <div class="info-row"><span class="l">Часы приема</span><span class="v">Пн-Пт: 10:00 - 17:00 (обед 13:00-14:00)</span></div>
+      <div class="info-row"><span class="l">Декан</span><span class="v">Смирнов Александр Петрович</span></div>
+    </div>
+  `;
+}
+
+/* ===== ГЛОБАЛЬНЫЙ ПОИСК ===== */
+function handleSearchInput(e) {
+  if (!e.target.value) document.getElementById('search-results').classList.add('hidden');
+}
+
+function handleSearchKey(e) {
+  if (e.key === 'Enter') {
+    const q = e.target.value.toLowerCase().trim();
+    const res = document.getElementById('search-results');
+    res.innerHTML = '';
+    if (!q) { res.classList.add('hidden'); return; }
+
+    const results = [];
+    
+    if ('главная'.includes(q) || 'дашборд'.includes(q)) results.push({ title: 'Главная', icon: 'ti-home', action: "showPage('dashboard')" });
+    if ('расписание'.includes(q) || 'пары'.includes(q)) results.push({ title: 'Расписание', icon: 'ti-calendar', action: "showPage('schedule')" });
+    if ('сессия'.includes(q) || 'экзамен'.includes(q)) results.push({ title: 'Сессия', icon: 'ti-file-check', action: "showPage('session')" });
+    if ('оценки'.includes(q) || 'успеваемость'.includes(q) || 'зачетка'.includes(q)) results.push({ title: 'Успеваемость', icon: 'ti-award', action: "showPage('grades')" });
+    if ('сдо'.includes(q) || 'курсы'.includes(q) || 'обучение'.includes(q)) results.push({ title: 'СДО (Курсы)', icon: 'ti-book', action: "showPage('lms')" });
+    if ('портфолио'.includes(q) || 'достижения'.includes(q)) results.push({ title: 'Портфолио', icon: 'ti-trophy', action: "showPage('portfolio')" });
+    if ('заявки'.includes(q) || 'справка'.includes(q)) results.push({ title: 'Заявки', icon: 'ti-file-text', action: "showPage('requests')" });
+    if ('сервисы'.includes(q) || 'документы'.includes(q) || 'общежитие'.includes(q)) results.push({ title: 'Сервисы', icon: 'ti-briefcase', action: "showPage('services')" });
+    if ('столовая'.includes(q) || 'меню'.includes(q) || 'еда'.includes(q)) results.push({ title: 'Столовая', icon: 'ti-coffee', action: "showPage('canteen')" });
+    if ('медпункт'.includes(q) || 'врач'.includes(q)) results.push({ title: 'Медпункт', icon: 'ti-stethoscope', action: "showPage('medical')" });
+    if ('мероприятия'.includes(q) || 'форум'.includes(q)) results.push({ title: 'Мероприятия', icon: 'ti-calendar-event', action: "showPage('events')" });
+    if ('деканат'.includes(q) || 'контакты'.includes(q) || 'телефон'.includes(q)) results.push({ title: 'Контакты', icon: 'ti-phone', action: "showPage('contacts')" });
+
+    currentUser.grades.disciplines.forEach(d => {
+      if (d.name.toLowerCase().includes(q)) results.push({ title: `Дисциплина: ${d.name}`, icon: 'ti-book', action: "showPage('grades')" });
+    });
+
+    if (results.length > 0) {
+      res.innerHTML = results.map(r => `
+        <div class="search-item" onclick="${r.action}; document.getElementById('search-results').classList.add('hidden'); document.getElementById('global-search-input').value='';">
+          <i class="ti ${r.icon}" style="color:var(--primary)"></i> ${r.title}
+        </div>
+      `).join('');
+      res.classList.remove('hidden');
+    } else {
+      res.innerHTML = `<div class="search-item" style="color:var(--text-2)">Ничего не найдено</div>`;
+      res.classList.remove('hidden');
+    }
+  }
+}
+
+/* ===== ЧАТ (AI + Деканат) ===== */
+let chatMode = 'ai';
+let chatHistory = {
+  ai: [{ type: 'bot', text: 'Привет! Я AI-помощник. Чем могу помочь?' }],
+  dekanat: [{ type: 'bot', text: 'Здравствуйте! Это чат с деканатом. Задайте ваш вопрос.' }]
+};
+
+function openAssistant() {
+  if (!currentUser) return;
+  chatMode = 'ai';
+  
+  const modal = document.createElement('div');
+  modal.className = 'chat-modal';
+  modal.innerHTML = `
+    <div class="chat">
+      <div class="chat-head">
+        <div class="av"><i class="ti ti-message-chatbot"></i></div>
+        <div style="flex:1">
+          <h3 id="chat-title">AI-Помощник</h3>
+          <p id="chat-status" style="font-size:12px;opacity:0.8">${chatMode === 'ai' ? 'Отвечает моментально' : 'Отвечает в течение 15 минут'}</p>
+        </div>
+        <div class="chat-toggle">
+          <button class="${chatMode === 'ai' ? 'active' : ''}" onclick="setChatMode('ai', this)">AI</button>
+          <button class="${chatMode === 'dekanat' ? 'active' : ''}" onclick="setChatMode('dekanat', this)">Деканат</button>
+        </div>
+        <button class="x" onclick="this.closest('.chat-modal').remove()" aria-label="Закрыть"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="chat-body" id="chat-body"></div>
+      <form class="chat-input" onsubmit="event.preventDefault(); const inp=this.querySelector('input'); sendChatMessage(inp.value); inp.value='';">
+        <input type="text" placeholder="Ваш вопрос..." autocomplete="off">
+        <button type="submit"><i class="ti ti-send"></i></button>
+      </form>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  
+  renderChatHistory();
+  setTimeout(() => modal.querySelector('input').focus(), 350);
+}
+
+function setChatMode(mode, btn) {
+  chatMode = mode;
+  document.querySelectorAll('.chat-toggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  
+  document.getElementById('chat-title').textContent = mode === 'ai' ? 'AI-Помощник' : 'Деканат';
+  document.getElementById('chat-status').textContent = mode === 'ai' ? 'Отвечает моментально' : 'Отвечает в течение 15 минут';
+  
+  renderChatHistory();
+}
+
+function renderChatHistory() {
+  const body = document.getElementById('chat-body');
+  if (!body) return;
+  body.innerHTML = chatHistory[chatMode].map(m => `<div class="msg ${m.type}">${esc(m.text)}</div>`).join('');
+  body.scrollTop = body.scrollHeight;
+}
+
+function sendChatMessage(q) {
+  if (!q || !q.trim()) return;
+  const body = document.getElementById('chat-body');
+  
+  const currentMode = chatMode;
+  const statusEl = document.getElementById('chat-status');
+  const oldStatus = statusEl.textContent;
+  
+  chatHistory[currentMode].push({ type: 'user', text: q });
+  body.insertAdjacentHTML('beforeend', `<div class="msg user">${esc(q)}</div>`);
+  body.scrollTop = body.scrollHeight;
+  
+  statusEl.textContent = 'печатает...';
+  
+  setTimeout(() => {
+    let ans = '';
+    if (currentMode === 'ai') {
+      const s = q.toLowerCase();
+      if (/расписан|пара/.test(s)) ans = "Расписание доступно в разделе 'Расписание'.";
+      else if (/оценк|балл/.test(s)) ans = `Ваш GPA: ${currentUser.grades.gpa}.`;
+      else if (/справк|заявк/.test(s)) ans = "Заказать справку можно в разделе 'Заявки'.";
+      else if (/курс|сдо/.test(s)) ans = "Все ваши курсы доступны в разделе 'СДО (Курсы)'.";
+      else ans = "Я пока учусь. Попробуйте спросить про расписание или оценки.";
+    } else {
+      ans = "Ваш вопрос передан дежурному специалисту. Ожидайте ответа в ближайшее время (демо).";
+    }
+    
+    chatHistory[currentMode].push({ type: 'bot', text: ans });
+    
+    if (chatMode === currentMode && document.getElementById('chat-body')) {
+      document.getElementById('chat-body').insertAdjacentHTML('beforeend', `<div class="msg bot">${esc(ans)}</div>`);
+      document.getElementById('chat-body').scrollTop = document.getElementById('chat-body').scrollHeight;
+    }
+    
+    if (document.getElementById('chat-status') && chatMode === currentMode) {
+      document.getElementById('chat-status').textContent = oldStatus;
+    }
+  }, currentMode === 'ai' ? 600 : 1500);
+}
+
+/* ===== ИНИЦИАЛИЗАЦИЯ ===== */
+function fillLogin(email, pwd) {
+  document.getElementById('login-email').value = email;
+  document.getElementById('login-password').value = pwd;
+  document.getElementById('login-form').dispatchEvent(new Event('submit'));
+}
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = document.getElementById('login-err');
+  err.style.display = 'none';
+  if (!dbReady) await initDB();
+  try {
+    const user = await doLogin(document.getElementById('login-email').value, document.getElementById('login-password').value);
+    currentUser = user;
+    resetViewStates();
+    chatHistory = { ai: [{ type: 'bot', text: 'Привет! Я AI-помощник. Чем могу помочь?' }], dekanat: [{ type: 'bot', text: 'Здравствуйте! Это чат с деканатом. Задайте ваш вопрос.' }] };
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('main-app').classList.remove('hidden');
+    document.getElementById('assistant-fab').classList.remove('hidden');
+    
+    const initialPage = window.location.hash.replace('#/', '') || 'dashboard';
+    showPage(initialPage);
+    
+    if (badgeInterval) clearInterval(badgeInterval);
+    badgeInterval = setInterval(updateBadges, 60000);
+    
+    toast(`Добро пожаловать, ${user.profile.firstName}!`);
+  } catch (e) {
+    err.textContent = e.message;
+    err.style.display = 'block';
+  }
+});
+
+document.querySelectorAll('.nav-item, .bn-item').forEach(el => {
+  el.addEventListener('click', (e) => {
+    if (el.dataset.action === 'navigator') {
+      e.preventDefault();
+      window.open('https://navigator.ranepa.ru/map/campus/1/floor/1', '_blank');
+      toast('Открываем официальный Навигатор РАНХиГС...', 'info');
+    } else if (el.dataset.page) {
+      showPage(el.dataset.page);
+    }
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    const searchContainer = document.querySelector('.topbar-search');
+    if (window.getComputedStyle(searchContainer).display !== 'none') {
+      e.preventDefault();
+      document.getElementById('global-search-input').focus();
+    }
+  }
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-bg, .chat-modal').forEach(m => m.remove());
+    document.getElementById('search-results').classList.add('hidden');
+    if (document.getElementById('sidebar').classList.contains('open')) toggleSidebar();
+  }
+});
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  storage.setItem('kampus_theme', next);
+  document.getElementById('theme-toggle').innerHTML = next === 'dark' ? '<i class="ti ti-sun"></i>' : '<i class="ti ti-moon"></i>';
+  if (currentPage === 'profile') renderProfile();
+});
+
+document.getElementById('assistant-fab').addEventListener('click', openAssistant);
+
+(async function initApp() {
+  const savedTheme = storage.getItem('kampus_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  if (savedTheme === 'dark') document.getElementById('theme-toggle').innerHTML = '<i class="ti ti-sun"></i>';
+  
+  await initDB();
+  const saved = restoreSession();
+  if (saved) {
+    currentUser = saved;
+    resetViewStates();
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('main-app').classList.remove('hidden');
+    document.getElementById('assistant-fab').classList.remove('hidden');
+    
+    const initialPage = window.location.hash.replace('#/', '') || 'dashboard';
+    showPage(initialPage);
+  }
+  
+  if (badgeInterval) clearInterval(badgeInterval);
+  badgeInterval = setInterval(updateBadges, 60000);
+})();
+</script>
+</body>
+</html>
